@@ -4,6 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/string.dart';
 import 'package:http/http.dart';
 
+class ListViewPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: Strings.appTitle,
+        theme: ThemeData(
+          primaryColor: Colors.red,
+          accentColor: Colors.red,
+        ),
+        home: ContentList());
+  }
+}
+
 class ContentList extends StatefulWidget {
   @override
   createState() => _ContentListState();
@@ -41,6 +54,7 @@ class _ContentListState extends State<ContentList> {
           title: Text(Strings.appTitle),
         ),
         body: RefreshIndicator(
+            color: Colors.red,
             child: ListView.builder(
               padding: const EdgeInsets.all(12.0),
               controller: _controller,
@@ -61,15 +75,14 @@ class _ContentListState extends State<ContentList> {
   Widget _buildRow(int i) {
     Feed feed = _items[i];
     return ListTile(
-      title: Text(
-        feed.title,
-        overflow: TextOverflow.fade,
-      ),
-      subtitle: Text('${feed.postdate} @${feed.author}'),
-      onTap: () {
-        print(feed.title);
-      }
-    );
+        title: Text(
+          feed.title,
+          overflow: TextOverflow.fade,
+        ),
+        subtitle: Text('${feed.postdate} @${feed.author}'),
+        onTap: () {
+          print(feed.title);
+        });
   }
 
   void _loadData(bool isRefresh) async {
