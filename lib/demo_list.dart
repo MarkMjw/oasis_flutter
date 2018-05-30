@@ -1,28 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/string.dart';
 import 'package:http/http.dart';
 
-class ListViewPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: Strings.appTitle,
-        theme: ThemeData(
-          primaryColor: Colors.red,
-          accentColor: Colors.red,
-        ),
-        home: ContentList());
-  }
-}
-
-class ContentList extends StatefulWidget {
+class DemoList extends StatefulWidget {
   @override
   createState() => _ContentListState();
 }
 
-class _ContentListState extends State<ContentList> {
+class _ContentListState extends State<DemoList> {
   var _items = [];
   var _curPage = 1;
   var _hasMore = true;
@@ -51,7 +37,7 @@ class _ContentListState extends State<ContentList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(Strings.appTitle),
+          title: Text("List demo"),
         ),
         body: RefreshIndicator(
             color: Colors.red,

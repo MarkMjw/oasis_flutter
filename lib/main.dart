@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/content_list.dart';
-import 'package:flutter_app/simple_page.dart';
+import 'package:flutter_app/demo_layout.dart';
+import 'package:flutter_app/demo_list.dart';
 
 void main() => runApp(new MyApp());
 
@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.red,
+        accentColor: Colors.red,
+        primaryColorDark: Colors.red,
+        primaryColor: Colors.red,
       ),
       home: new MyHomePage(title: 'Flutter Demo'),
     );
@@ -50,26 +53,26 @@ class _MyHomePageState extends State<MyHomePage> {
             new Container(
               margin: EdgeInsets.only(top: 20.0),
               child: new RaisedButton(
-                child: Text("Simple页面",
+                child: Text("Layout demo页面",
                     style: new TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => new SimplePage()));
+                          builder: (context) => new DemoLayout()));
                 },
               ),
             ),
             new Container(
               margin: EdgeInsets.only(top: 20.0),
               child: new RaisedButton(
-                child: Text("ListView页面",
+                child: Text("List demo页面",
                     style: new TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => new ListViewPage()));
+                          builder: (context) => new DemoList()));
                 },
               ),
             ),
