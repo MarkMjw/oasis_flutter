@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/page/main_page.dart';
 
 void main() => runApp(new MyApp());
@@ -10,10 +11,9 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
         title: 'Flutter Demo',
         theme: new ThemeData(
-          primarySwatch: Colors.red,
-          accentColor: Colors.red,
-          primaryColorDark: Colors.red,
-          primaryColor: Colors.red,
+          accentColor: ColorConfig.colorPrimary,
+          primaryColorDark: ColorConfig.colorPrimary,
+          primaryColor: ColorConfig.colorPrimary,
         ),
         home: new MainPage());
   }
