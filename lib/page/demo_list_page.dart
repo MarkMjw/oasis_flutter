@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 
 class DemoList extends StatefulWidget {
   @override
-  createState() => _ContentListState();
+  _ContentListState createState() => _ContentListState();
 }
 
 class _ContentListState extends State<DemoList> {
