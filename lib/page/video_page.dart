@@ -15,7 +15,7 @@ class VideoPage extends StatefulWidget {
   _VideoPageState createState() => _VideoPageState();
 }
 
-class _VideoPageState extends State<VideoPage> {
+class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
@@ -31,6 +31,9 @@ class _VideoPageState extends State<VideoPage> {
       }
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {

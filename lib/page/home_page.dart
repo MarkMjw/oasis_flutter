@@ -12,50 +12,56 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   List<Category> _cates = [];
+  TabController _controller;
 
   @override
   void initState() {
     _initTabs();
-//    _fetchTabs();
+    _fetchTabs();
     super.initState();
   }
 
   @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _cates.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("首页"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.dehaze),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoPage()));
-                })
-          ],
-          bottom: TabBar(
-            tabs: _cates.map((cate) {
-              return Tab(text: cate.name);
-            }).toList(),
-            isScrollable: true,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: Colors.white,
-            indicatorWeight: 2,
-            indicatorPadding: EdgeInsets.only(bottom: 0.0),
-            labelColor: Colors.white,
-            labelStyle: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
-            unselectedLabelColor: ColorConfig.colorText1,
-            unselectedLabelStyle: new TextStyle(fontSize: 16.0),
-          ),
-        ),
-        body: TabBarView(
-          children: _cates.map((cate) {
-            return VideoPage(cid: cate.cid);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("首页"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.dehaze),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => DemoPage()));
+              })
+        ],
+        bottom: TabBar(
+          controller: _controller,
+          tabs: _cates.map((cate) {
+            return Tab(text: cate.name);
           }).toList(),
+          isScrollable: true,
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorColor: Colors.white,
+          indicatorWeight: 2,
+          indicatorPadding: EdgeInsets.only(bottom: 0.0),
+          labelColor: Colors.white,
+          labelStyle: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+          unselectedLabelColor: ColorConfig.colorText1,
+          unselectedLabelStyle: new TextStyle(fontSize: 16.0),
         ),
+      ),
+      body: TabBarView(
+        children: _cates.map((cate) {
+          return VideoPage(cid: cate.cid);
+        }).toList(),
+        controller: _controller,
       ),
     );
   }
@@ -101,6 +107,8 @@ class _HomePageState extends State<HomePage> {
     _cates.add(cate6);
     _cates.add(cate7);
     _cates.add(cate8);
+
+    _controller = TabController(length: _cates.length, vsync: this);
   }
 
   void _fetchTabs() async {
@@ -113,9 +121,12 @@ class _HomePageState extends State<HomePage> {
     final int code = body["code"];
     if (code == 0) {
       final cids = body["data"]["cids"];
+      _cates.clear();
       cids.forEach((item) => _cates.add(Category.fromJson(item)));
 
-      setState(() {});
+      setState(() {
+        _controller = TabController(length: _cates.length, vsync: this);
+      });
     }
   }
 }

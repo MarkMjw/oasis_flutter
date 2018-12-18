@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
       [getTabImage('assets/images/mine.png'), getTabImage('assets/images/mine_selected.png')],
     ];
     _pages = [HomePage(), StoryPage(), MoneyPage(), MinePage()];
-    pageController = PageController(initialPage: _tabIndex);
+    pageController = PageController(initialPage: _tabIndex, keepPage: true);
   }
 
   Image getTabImage(path) {
