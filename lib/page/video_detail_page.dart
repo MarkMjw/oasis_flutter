@@ -23,9 +23,9 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   @override
-  void deactivate() {
+  void dispose() {
     _controller.dispose();
-    super.deactivate();
+    super.dispose();
   }
 
   @override
@@ -86,6 +86,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               alignment: Alignment.topLeft,
               child: Text(
                 widget.status.title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 17.0,
                   fontWeight: FontWeight.bold,
@@ -100,6 +102,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               alignment: Alignment.topLeft,
               child: Text(
                 widget.status.summary,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/color_config.dart';
+import 'package:flutter_app/page/home_page.dart';
 import 'package:flutter_app/page/mine_page.dart';
 import 'package:flutter_app/page/money_page.dart';
 import 'package:flutter_app/page/story_page.dart';
-import 'package:flutter_app/page/video_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -86,14 +86,14 @@ class _MainPageState extends State<MainPage> {
   }
 
   void initTab() {
-    tabTitles = ['视频', '故事', '钱包', '我的'];
+    tabTitles = ['首页', '故事', '金币', '我的'];
     tabImages = [
       [getTabImage('assets/images/video.png'), getTabImage('assets/images/video_selected.png')],
       [getTabImage('assets/images/story.png'), getTabImage('assets/images/story_selected.png')],
       [getTabImage('assets/images/money.png'), getTabImage('assets/images/money_selected.png')],
       [getTabImage('assets/images/mine.png'), getTabImage('assets/images/mine_selected.png')],
     ];
-    _pages = [VideoPage(), StoryPage(), MoneyPage(), MinePage()];
+    _pages = [HomePage(), StoryPage(), MoneyPage(), MinePage()];
     pageController = PageController(initialPage: _tabIndex);
   }
 

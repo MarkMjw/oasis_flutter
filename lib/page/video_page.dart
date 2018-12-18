@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/config/api.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/status.dart';
-import 'package:flutter_app/page/demo_page.dart';
 import 'package:flutter_app/page/video_detail_page.dart';
 import 'package:http/http.dart';
 
 class VideoPage extends StatefulWidget {
+  final String cid;
+
+  VideoPage({Key key, this.cid = "1"}) : super(key: key);
+
   @override
   _VideoPageState createState() => _VideoPageState();
 }
@@ -38,16 +41,6 @@ class _VideoPageState extends State<VideoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("视频"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.dehaze),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoPage()));
-                })
-          ],
-        ),
         body: RefreshIndicator(
             color: ColorConfig.colorPrimary,
             child: ListView.builder(
@@ -106,7 +99,7 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   void _loadData(bool isRefresh) async {
-    String url = "${Api.HOST}/status/list?cid=1&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/status/list?cid=${widget.cid}&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
     print(url);
     Response response = await get(url);
 
