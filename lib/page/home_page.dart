@@ -14,7 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Category> _cates = [];
-  List<Tab> _tabs = [];
 
   @override
   void initState() {
@@ -26,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: _tabs.length,
+      length: _cates.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text("首页"),
@@ -38,7 +37,9 @@ class _HomePageState extends State<HomePage> {
                 })
           ],
           bottom: TabBar(
-            tabs: _tabs,
+            tabs: _cates.map((cate) {
+              return Tab(text: cate.name);
+            }).toList(),
             isScrollable: true,
             indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: Colors.white,
@@ -100,10 +101,6 @@ class _HomePageState extends State<HomePage> {
     _cates.add(cate6);
     _cates.add(cate7);
     _cates.add(cate8);
-
-    _cates.forEach((cate) {
-      _tabs.add(Tab(text: cate.name));
-    });
   }
 
   void _fetchTabs() async {
@@ -118,11 +115,7 @@ class _HomePageState extends State<HomePage> {
       final cids = body["data"]["cids"];
       cids.forEach((item) => _cates.add(Category.fromJson(item)));
 
-      setState(() {
-        _cates.forEach((cate) {
-          _tabs.add(Tab(text: cate.name));
-        });
-      });
+      setState(() {});
     }
   }
 }
