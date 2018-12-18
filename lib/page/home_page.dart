@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Category> _cates = [];
+  List<Tab> _tabs = [];
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: _cates.length,
+      length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text("首页"),
@@ -37,14 +38,12 @@ class _HomePageState extends State<HomePage> {
                 })
           ],
           bottom: TabBar(
-            tabs: _cates.map((cate) {
-              Tab(text: cate.name);
-            }).toList(),
+            tabs: _tabs,
             isScrollable: true,
             indicatorSize: TabBarIndicatorSize.label,
             indicatorColor: Colors.white,
             indicatorWeight: 2,
-//            indicatorPadding: EdgeInsets.only(bottom: 0.0),
+            indicatorPadding: EdgeInsets.only(bottom: 0.0),
             labelColor: Colors.white,
             labelStyle: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
             unselectedLabelColor: ColorConfig.colorText1,
@@ -101,6 +100,10 @@ class _HomePageState extends State<HomePage> {
     _cates.add(cate6);
     _cates.add(cate7);
     _cates.add(cate8);
+
+    _cates.forEach((cate) {
+      _tabs.add(Tab(text: cate.name));
+    });
   }
 
   void _fetchTabs() async {
@@ -115,7 +118,11 @@ class _HomePageState extends State<HomePage> {
       final cids = body["data"]["cids"];
       cids.forEach((item) => _cates.add(Category.fromJson(item)));
 
-      setState(() {});
+      setState(() {
+        _cates.forEach((cate) {
+          _tabs.add(Tab(text: cate.name));
+        });
+      });
     }
   }
 }
