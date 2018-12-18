@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/demo_page.dart';
 
 class MinePage extends StatefulWidget {
   @override

@@ -4,7 +4,7 @@ import 'package:flutter_app/page/demo_list_page.dart';
 
 class DemoPage extends StatefulWidget {
   @override
-  _DemoPageState createState() => new _DemoPageState();
+  _DemoPageState createState() => _DemoPageState();
 }
 
 class _DemoPageState extends State<DemoPage> {

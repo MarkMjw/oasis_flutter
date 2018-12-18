@@ -12,7 +12,7 @@ class _ListPageState extends State<DemoListPage> {
   var _items = [];
   var _curPage = 1;
   var _hasMore = true;
-  ScrollController _controller = new ScrollController();
+  ScrollController _controller = ScrollController();
 
   _ListPageState() {
     _controller.addListener(() {
@@ -72,8 +72,7 @@ class _ListPageState extends State<DemoListPage> {
   }
 
   void _loadData(bool isRefresh) async {
-    String url =
-        "https://app.kangzubin.com/iostips/api/feed/list?page=$_curPage&from=flutter-app&version=1.0";
+    String url = "https://app.kangzubin.com/iostips/api/feed/list?page=$_curPage&from=flutter-app&version=1.0";
     Response response = await get(url);
 
     final body = json.decode(response.body);
@@ -81,8 +80,7 @@ class _ListPageState extends State<DemoListPage> {
     if (code == 0) {
       final feeds = body["data"]["feeds"];
       var items = [];
-      feeds.forEach((item) =>
-          items.add(Feed(item["author"], item["title"], item["postdate"])));
+      feeds.forEach((item) => items.add(Feed(item["author"], item["title"], item["postdate"])));
 
       setState(() {
         if (isRefresh) {

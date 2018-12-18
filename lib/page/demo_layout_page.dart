@@ -35,9 +35,9 @@ class _LayoutPageState extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              new Row(
+              Row(
                 children: <Widget>[
-                  new Container(
+                  Container(
                     width: 52.0,
                     height: 52.0,
                     margin: const EdgeInsets.only(left: 16.0),
@@ -45,7 +45,7 @@ class _LayoutPageState extends StatelessWidget {
                       backgroundImage: AssetImage("assets/images/avatar.png"),
                     ),
                   ),
-                  new Container(
+                  Container(
                     margin: const EdgeInsets.only(left: 7.0, right: 15.0),
                     height: 48.0,
                     child: Stack(
@@ -69,7 +69,6 @@ class _LayoutPageState extends StatelessWidget {
               ),
             ],
           ),
-
           Container(
             margin: const EdgeInsets.fromLTRB(6.0, 24.0, 6.0, 30.0),
             child: RoundInnerSquareBox(
@@ -82,10 +81,7 @@ class _LayoutPageState extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       "Unit 1 Lesson 3 About animal",
-                      style: TextStyle(
-                          fontSize: 20.0,
-                          fontFamily: "Round",
-                          color: Colors.white),
+                      style: TextStyle(fontSize: 20.0, fontFamily: "Round", color: Colors.white),
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 5.0, bottom: 13.0),
@@ -110,8 +106,7 @@ class _LayoutPageState extends StatelessWidget {
                             top: 4.0,
                             child: Text(
                               "预习",
-                              style: TextStyle(
-                                  fontSize: 14.0, color: Colors.white),
+                              style: TextStyle(fontSize: 14.0, color: Colors.white),
                             ),
                           )
                         ],
@@ -121,8 +116,7 @@ class _LayoutPageState extends StatelessWidget {
                       alignment: Alignment.topRight,
                       child: Text(
                         "明天12：00截止",
-                        style: TextStyle(
-                            fontSize: 12.0, color: const Color(0xffffc1c1)),
+                        style: TextStyle(fontSize: 12.0, color: const Color(0xffffc1c1)),
                       ),
                     )
                   ],
@@ -130,14 +124,12 @@ class _LayoutPageState extends StatelessWidget {
               ),
             ),
           ),
-
           LineTips(
             title: Text(
               "给家长发个通知吧",
               style: TextStyle(fontSize: 14.0, color: const Color(0xff757085)),
             ),
           ),
-
           Container(
             margin: const EdgeInsets.only(top: 32.0),
             height: 60.0,
@@ -209,13 +201,13 @@ class LineTips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
+    return Padding(
       padding: defaultMargin,
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          new Expanded(
-            child: new Container(
+          Expanded(
+            child: Container(
               margin: const EdgeInsets.only(
                 right: 10.0,
               ),
@@ -224,8 +216,8 @@ class LineTips extends StatelessWidget {
             ),
           ),
           title,
-          new Expanded(
-            child: new Container(
+          Expanded(
+            child: Container(
               margin: const EdgeInsets.only(
                 left: 10.0,
               ),

@@ -44,7 +44,7 @@ class _VideoPageState extends State<VideoPage> {
             IconButton(
                 icon: Icon(Icons.dehaze),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => new DemoPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoPage()));
                 })
           ],
         ),
