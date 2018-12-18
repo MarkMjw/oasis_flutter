@@ -84,7 +84,7 @@ class _VideoPageState extends State<VideoPage> {
               padding: EdgeInsets.zero,
               icon: Image.asset("assets/images/play.png"),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
               },
             ),
           ),
@@ -110,7 +110,6 @@ class _VideoPageState extends State<VideoPage> {
     print(url);
     Response response = await get(url);
 
-    print(response);
     final body = json.decode(response.body);
     final int code = body["code"];
     if (code == 0) {

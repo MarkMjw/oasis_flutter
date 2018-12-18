@@ -19,4 +19,9 @@ class Comment {
     comment.createTime = json['create_time'];
     return comment;
   }
+
+  @override
+  String toString() {
+    return 'Comment{cid: $cid, text: $text, user: $user, reply: $reply, createTime: $createTime}';
+  }
 }

@@ -15,4 +15,9 @@ class User {
     user.description = json['description'];
     return user;
   }
+
+  @override
+  String toString() {
+    return 'User{id: $id, name: $name, description: $description}';
+  }
 }
