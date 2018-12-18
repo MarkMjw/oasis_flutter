@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
-class DemoLayout extends StatelessWidget {
+class DemoLayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +18,12 @@ class DemoLayout extends StatelessWidget {
       ),
 
       /// body
-      body: PageContent(),
+      body: _LayoutPageState(),
     );
   }
 }
 
-class PageContent extends StatelessWidget {
+class _LayoutPageState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

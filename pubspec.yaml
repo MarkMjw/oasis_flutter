@@ -47,6 +47,8 @@ flutter:
     - assets/images/money_selected.png
     - assets/images/mine.png
     - assets/images/mine_selected.png
+    - assets/images/play.png
+    - assets/images/pause.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

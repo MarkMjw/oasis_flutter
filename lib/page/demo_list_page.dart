@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
-class DemoList extends StatefulWidget {
+class DemoListPage extends StatefulWidget {
   @override
-  _ContentListState createState() => _ContentListState();
+  _ListPageState createState() => _ListPageState();
 }
 
-class _ContentListState extends State<DemoList> {
+class _ListPageState extends State<DemoListPage> {
   var _items = [];
   var _curPage = 1;
   var _hasMore = true;
   ScrollController _controller = new ScrollController();
 
-  _ContentListState() {
+  _ListPageState() {
     _controller.addListener(() {
       var maxScroll = _controller.position.maxScrollExtent;
       var pixels = _controller.position.pixels;
