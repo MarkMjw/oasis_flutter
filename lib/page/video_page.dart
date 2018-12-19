@@ -4,7 +4,7 @@ import 'package:flutter_app/config/api.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/status.dart';
 import 'package:flutter_app/page/video_detail_page.dart';
-import 'package:flutter_app/util/time_util.dart';
+import 'package:flutter_app/util/util.dart';
 import 'package:http/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -134,7 +134,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
           alignment: Alignment.bottomRight,
           margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: Text(
-            "${formatDuration(status.video.duration)}  |  ${status.playCount}次播放",
+            "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
             style: TextStyle(
               fontSize: 12,
               color: Colors.white,
