@@ -31,7 +31,7 @@ class Status {
     status.user = User.fromJson(jsonUser);
     status.isLike = json['is_like'];
     status.playCount = json['play_count'];
-    status.likeCount = json['lide_count'];
+    status.likeCount = json['like_count'];
     status.commentCount = json['comment_count'];
     var jsonVideo = json['video'];
     status.video = Video.fromJson(jsonVideo);

@@ -64,22 +64,23 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
   }
 
   Widget _buildRow(int position) {
+    Status status = _items[position];
     return Column(
       children: <Widget>[
-        _createVideoContent(position),
-        _createVideoToolbar(position),
+        _createVideoContent(status),
+        _createVideoToolbar(status),
       ],
     );
   }
 
-  Widget _createVideoToolbar(int position) {
-    Status status = _items[position];
+  Widget _createVideoToolbar(Status status) {
     return Container(
       width: double.infinity,
       height: 48,
       margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
       alignment: Alignment.centerLeft,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           ClipOval(
             child: CachedNetworkImage(
@@ -90,8 +91,9 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 10),
+          Flexible(
+            flex: 1,
+            fit: FlexFit.loose,
             child: Text(
               status.user.name,
               style: TextStyle(
@@ -100,13 +102,37 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               ),
             ),
           ),
+          Container(
+            color: ColorConfig.colorBackground1,
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Image.asset("assets/images/zan.png", width: 24, height: 24),
+                Text(
+                  formatNumberZh(status.likeCount),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: ColorConfig.colorText1,
+                  ),
+                ),
+                Image.asset("assets/images/comment.png", width: 24, height: 24),
+                Text(
+                  formatNumberZh(status.commentCount),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: ColorConfig.colorText1,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _createVideoContent(int position) {
-    Status status = _items[position];
+  Widget _createVideoContent(Status status) {
     return Stack(
       children: <Widget>[
         Container(
