@@ -38,22 +38,6 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-//              AnimatedOpacity(
-//                opacity: _isPlaying ? 0 : 1,
-//                duration: Duration(microseconds: 300),
-//                child: Container(
-//                  height: 180,
-//                  width: double.infinity,
-//                  margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-//                  decoration: BoxDecoration(
-//                    image: DecorationImage(
-//                      image: Image.network(widget.status.video.imageUrl).image,
-//                      fit: BoxFit.fitWidth,
-//                    ),
-//                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-//                  ),
-//                ),
-//              ),
               Container(
                 margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                 child: Center(

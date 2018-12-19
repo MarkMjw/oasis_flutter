@@ -4,7 +4,9 @@ import 'package:flutter_app/config/api.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/status.dart';
 import 'package:flutter_app/page/video_detail_page.dart';
+import 'package:flutter_app/util/time_util.dart';
 import 'package:http/http.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class VideoPage extends StatefulWidget {
   final String cid;
@@ -16,6 +18,7 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
+  final double _itemHeight = 180;
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
@@ -47,7 +50,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
         body: RefreshIndicator(
             color: ColorConfig.colorPrimary,
             child: ListView.builder(
-              padding: EdgeInsets.fromLTRB(0.0, 2.5, 0, 2.5),
+              padding: EdgeInsets.fromLTRB(0, 2.5, 0, 2.5),
               controller: _scrollController,
               itemCount: _items.length,
               itemBuilder: (BuildContext context, int position) {
@@ -65,38 +68,79 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
     return Stack(
       children: <Widget>[
         Container(
-          height: 180,
+          height: _itemHeight,
           width: double.infinity,
-          margin: EdgeInsets.fromLTRB(5.0, 2.5, 5, 2.5),
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: Image.network(status.video.imageUrl).image,
-              fit: BoxFit.fitWidth,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
+          decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            child: CachedNetworkImage(imageUrl: status.video.imageUrl, fit: BoxFit.fitWidth),
           ),
-          child: Center(
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              icon: Image.asset("assets/images/play.png"),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
-              },
+        ),
+        Container(
+          width: double.infinity,
+          height: _itemHeight,
+          alignment: Alignment.topCenter,
+          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+            child: Image.asset(
+              "assets/images/shadow_up.png",
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: 100,
             ),
           ),
         ),
-        Positioned(
-          left: 15.0,
-          top: 10.0,
-          right: 15.0,
+        Container(
+          width: double.infinity,
+          height: _itemHeight,
+          alignment: Alignment.bottomCenter,
+          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+            child: Image.asset(
+              "assets/images/shadow_down.png",
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: 80,
+            ),
+          ),
+        ),
+        Container(
+          height: _itemHeight,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: IconButton(
+            padding: EdgeInsets.zero,
+            icon: Image.asset("assets/images/play.png"),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
+            },
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
           child: Text(
             status.title,
             style: TextStyle(
-              fontSize: 16.0,
+              fontSize: 16,
               color: Colors.white,
             ),
           ),
         ),
+        Container(
+          height: _itemHeight,
+          alignment: Alignment.bottomRight,
+          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Text(
+            "${formatDuration(status.video.duration)}  |  ${status.playCount}次播放",
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+            ),
+          ),
+        )
       ],
     );
   }

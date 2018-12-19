@@ -11,6 +11,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.0+2
   http: ^0.12.0
   video_player: ^0.8.0
+  cached_network_image: ^0.5.1
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +50,8 @@ flutter:
     - assets/images/mine_selected.png
     - assets/images/play.png
     - assets/images/pause.png
+    - assets/images/shadow_up.png
+    - assets/images/shadow_down.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
