@@ -52,6 +52,9 @@ flutter:
     - assets/images/pause.png
     - assets/images/shadow_up.png
     - assets/images/shadow_down.png
+    - assets/images/default_head.png
+    - assets/images/comment.png
+    - assets/images/zan.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

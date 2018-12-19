@@ -64,6 +64,48 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
   }
 
   Widget _buildRow(int position) {
+    return Column(
+      children: <Widget>[
+        _createVideoContent(position),
+        _createVideoToolbar(position),
+      ],
+    );
+  }
+
+  Widget _createVideoToolbar(int position) {
+    Status status = _items[position];
+    return Container(
+      width: double.infinity,
+      height: 48,
+      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
+      alignment: Alignment.centerLeft,
+      child: Row(
+        children: <Widget>[
+          ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: status.user.image,
+              fit: BoxFit.fill,
+              width: 36,
+              height: 36,
+              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(
+              status.user.name,
+              style: TextStyle(
+                fontSize: 14,
+                color: ColorConfig.colorText1,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _createVideoContent(int position) {
     Status status = _items[position];
     return Stack(
       children: <Widget>[
