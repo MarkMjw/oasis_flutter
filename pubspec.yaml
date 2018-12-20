@@ -13,6 +13,7 @@ dependencies:
   video_player: ^0.8.0
   cached_network_image: ^0.5.1
   fluttertoast: ^2.2.0
+  intl: ^0.15.7
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +57,11 @@ flutter:
     - assets/images/default_head.png
     - assets/images/comment.png
     - assets/images/zan.png
+    - assets/images/icon_weibo.png
+    - assets/images/icon_wechat.png
+    - assets/images/icon_pyq.png
+    - assets/images/icon_qq.png
+    - assets/images/icon_qzone.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

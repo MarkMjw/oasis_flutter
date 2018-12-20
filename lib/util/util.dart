@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 String formatDuration(int second) {
   int m = second ~/ 60;
   int s = second % 60;
@@ -16,4 +18,9 @@ String formatNumberZh(int num) {
   } else {
     return "${(num / 100000000).toStringAsFixed(1)}亿";
   }
+}
+
+String formatDate(int date, String format) {
+  DateTime time = DateTime.fromMillisecondsSinceEpoch(date);
+  return DateFormat(format).format(time);
 }

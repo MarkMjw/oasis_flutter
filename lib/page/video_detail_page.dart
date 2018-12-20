@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/status.dart';
+import 'package:flutter_app/util/util.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -36,64 +38,182 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       ),
       body: Column(
         children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                child: Center(
-                  child: _controller.value.initialized
-                      ? AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),
-                        )
-                      : Container(),
-                ),
-              ),
-              Container(
-                height: 180,
-                width: double.infinity,
-                child: Center(
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: _controller.value.isPlaying
-                        ? Image.asset("assets/images/pause.png")
-                        : Image.asset("assets/images/play.png"),
-                    onPressed: _controller.value.isPlaying ? _controller.pause : _controller.play,
-                  ),
-                ),
-              ),
-            ],
-          ),
+          _buildPlayer(),
           Container(
-            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                widget.status.title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 17.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            alignment: Alignment.topLeft,
+            child: Text(
+              widget.status.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                widget.status.summary,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.bold,
-                  color: ColorConfig.colorText1,
-                ),
+            margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+            alignment: Alignment.topLeft,
+            child: Text(
+              widget.status.summary,
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: 13.0,
+                color: ColorConfig.colorText1,
               ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            alignment: Alignment.topLeft,
+            child: Text(
+              "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "MM-dd HH:mm")}发布",
+              style: TextStyle(
+                fontSize: 11,
+                color: Color(0xff9d9d9d),
+              ),
+            ),
+          ),
+          _buildShareLayout(),
+          Container(
+            margin: EdgeInsets.only(left: 10, right: 10),
+            height: 1,
+            color: ColorConfig.colorBackground1,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10, right: 10),
+            height: 48,
+            child: Row(
+              children: <Widget>[
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.status.user.image,
+                    fit: BoxFit.fill,
+                    width: 36,
+                    height: 36,
+                    placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+                  ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.status.user.name,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10, top: 1),
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.status.user.description,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: ColorConfig.colorText1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(height: 5, color: ColorConfig.colorBackground1),
+        ],
+      ),
+    );
+  }
+
+  Stack _buildPlayer() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          child: _controller.value.initialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(),
+        ),
+        Container(
+          height: 180,
+          width: double.infinity,
+          child: Center(
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: Image.asset(_controller.value.isPlaying ? "assets/images/pause.png" : "assets/images/play.png"),
+              onPressed: _controller.value.isPlaying ? _controller.pause : _controller.play,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Container _buildShareLayout() {
+    return Container(
+      height: 48,
+      margin: EdgeInsets.only(left: 10, right: 10),
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(right: 5),
+            child: Text(
+              "分享到:",
+              style: TextStyle(
+                fontSize: 11,
+                color: Color(0xff9d9d9d),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            child: Image.asset(
+              "assets/images/icon_weibo.png",
+              width: 23,
+              height: 23,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            child: Image.asset(
+              "assets/images/icon_wechat.png",
+              width: 23,
+              height: 23,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            child: Image.asset(
+              "assets/images/icon_pyq.png",
+              width: 20,
+              height: 20,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            child: Image.asset(
+              "assets/images/icon_qq.png",
+              width: 20,
+              height: 20,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            child: Image.asset(
+              "assets/images/icon_qzone.png",
+              width: 20,
+              height: 20,
             ),
           ),
         ],
