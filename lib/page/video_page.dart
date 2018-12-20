@@ -7,6 +7,7 @@ import 'package:flutter_app/page/video_detail_page.dart';
 import 'package:flutter_app/util/util.dart';
 import 'package:http/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class VideoPage extends StatefulWidget {
   final String cid;
@@ -80,6 +81,8 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
       width: double.infinity,
       height: 48,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           ClipOval(
             child: CachedNetworkImage(
@@ -104,45 +107,41 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
           ),
           Row(
             children: <Widget>[
-              Container(
-                height: double.infinity,
-                padding: EdgeInsets.only(left: 10, right: 3),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset("assets/images/zan.png", width: 24, height: 24),
-                    Padding(
-                      padding: EdgeInsets.only(left: 3),
-                      child: Text(
-                        formatNumberZh(status.likeCount),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: ColorConfig.colorText1,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              InkWell(
+                child: createToolbarMenu("assets/images/zan.png", formatNumberZh(status.likeCount)),
+                onTap: () {
+                  Fluttertoast.showToast(msg: "点赞👍 +1", backgroundColor: ColorConfig.colorToastBackground);
+                },
               ),
-              Container(
-                height: double.infinity,
-                padding: EdgeInsets.only(left: 10, right: 3),
-                child: Row(
-                  children: <Widget>[
-                    Image.asset("assets/images/comment.png", width: 24, height: 24),
-                    Padding(
-                      padding: EdgeInsets.only(left: 3),
-                      child: Text(
-                        formatNumberZh(status.commentCount),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: ColorConfig.colorText1,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              InkWell(
+                child: createToolbarMenu("assets/images/comment.png", formatNumberZh(status.commentCount)),
+                onTap: () {
+                  Fluttertoast.showToast(msg: "评论😊 +1", backgroundColor: ColorConfig.colorToastBackground);
+                },
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container createToolbarMenu(String icon, String text) {
+    return Container(
+      height: double.infinity,
+      padding: EdgeInsets.only(left: 10, right: 3),
+      child: Row(
+        children: <Widget>[
+          Image.asset(icon, width: 24, height: 24),
+          Padding(
+            padding: EdgeInsets.only(left: 3),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                color: ColorConfig.colorText1,
+              ),
+            ),
           ),
         ],
       ),

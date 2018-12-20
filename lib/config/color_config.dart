@@ -12,4 +12,5 @@ class ColorConfig {
   static Color colorBackground1 = Color(0xFFEDEDED);
   static Color colorBackground = Color(0xFFFFFFFF);
   static Color colorDivider = Color(0xFFEDEDED);
+  static Color colorToastBackground = Color(0xB3000000);
 }
