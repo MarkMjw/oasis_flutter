@@ -76,78 +76,6 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
     );
   }
 
-  Widget _createVideoToolbar(Status status) {
-    return Container(
-      width: double.infinity,
-      height: 48,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: status.user.image,
-              fit: BoxFit.fill,
-              width: 36,
-              height: 36,
-              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                status.user.name,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorConfig.colorText1,
-                ),
-              ),
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              InkWell(
-                child: createToolbarMenu("assets/images/zan.png", formatNumberZh(status.likeCount)),
-                onTap: () {
-                  Fluttertoast.showToast(msg: "点赞👍 +1", backgroundColor: ColorConfig.colorToastBackground);
-                },
-              ),
-              InkWell(
-                child: createToolbarMenu("assets/images/comment.png", formatNumberZh(status.commentCount)),
-                onTap: () {
-                  Fluttertoast.showToast(msg: "评论😊 +1", backgroundColor: ColorConfig.colorToastBackground);
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container createToolbarMenu(String icon, String text) {
-    return Container(
-      height: double.infinity,
-      padding: EdgeInsets.only(left: 10, right: 3),
-      child: Row(
-        children: <Widget>[
-          Image.asset(icon, width: 24, height: 24),
-          Padding(
-            padding: EdgeInsets.only(left: 3),
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 12,
-                color: ColorConfig.colorText1,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _createVideoContent(Status status) {
     return Container(
       height: 180,
@@ -163,34 +91,8 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               child: CachedNetworkImage(imageUrl: status.video.imageUrl, fit: BoxFit.fitWidth),
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            alignment: Alignment.topCenter,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-              child: Image.asset(
-                "assets/images/shadow_up.png",
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: 100,
-              ),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            alignment: Alignment.bottomCenter,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
-              child: Image.asset(
-                "assets/images/shadow_down.png",
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: 80,
-              ),
-            ),
-          ),
+          _buildShadow("assets/images/shadow_up.png", Alignment.topCenter, 100),
+          _buildShadow("assets/images/shadow_down.png", Alignment.bottomCenter, 80),
           Container(
             height: double.infinity,
             width: double.infinity,
@@ -225,6 +127,95 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Container _buildShadow(String image, AlignmentGeometry alignment, double height) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      alignment: alignment,
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+        child: Image.asset(
+          image,
+          fit: BoxFit.fill,
+          width: double.infinity,
+          height: height,
+        ),
+      ),
+    );
+  }
+
+  Widget _createVideoToolbar(Status status) {
+    return Container(
+      width: double.infinity,
+      height: 48,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: status.user.image,
+              fit: BoxFit.fill,
+              width: 36,
+              height: 36,
+              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                status.user.name,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: ColorConfig.colorText1,
+                ),
+              ),
+            ),
+          ),
+          Row(
+            children: <Widget>[
+              InkWell(
+                child: _createToolbarMenu("assets/images/zan.png", formatNumberZh(status.likeCount)),
+                onTap: () {
+                  Fluttertoast.showToast(msg: "点赞👍 +1", backgroundColor: ColorConfig.colorToastBackground);
+                },
+              ),
+              InkWell(
+                child: _createToolbarMenu("assets/images/comment.png", formatNumberZh(status.commentCount)),
+                onTap: () {
+                  Fluttertoast.showToast(msg: "评论😊 +1", backgroundColor: ColorConfig.colorToastBackground);
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _createToolbarMenu(String icon, String text) {
+    return Container(
+      height: double.infinity,
+      padding: EdgeInsets.only(left: 10, right: 3),
+      child: Row(
+        children: <Widget>[
+          Image.asset(icon, width: 24, height: 24),
+          Padding(
+            padding: EdgeInsets.only(left: 3),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+                color: ColorConfig.colorText1,
+              ),
+            ),
+          ),
         ],
       ),
     );
