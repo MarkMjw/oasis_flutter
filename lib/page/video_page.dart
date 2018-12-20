@@ -18,7 +18,6 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
-  final double _itemHeight = 180;
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
@@ -50,11 +49,14 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
         body: RefreshIndicator(
             color: ColorConfig.colorPrimary,
             child: ListView.builder(
-              padding: EdgeInsets.fromLTRB(0, 2.5, 0, 2.5),
+              padding: EdgeInsets.all(5),
               controller: _scrollController,
-              itemCount: _items.length,
+              itemCount: _items.length * 2 - 1,
               itemBuilder: (BuildContext context, int position) {
-                return _buildRow(position);
+                if (position.isOdd) return Divider(color: Colors.transparent, height: 5);
+
+                final index = position ~/ 2;
+                return _buildRow(index);
               },
             ),
             onRefresh: () async {
@@ -77,10 +79,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
     return Container(
       width: double.infinity,
       height: 48,
-      margin: EdgeInsets.fromLTRB(5, 0, 5, 5),
-      alignment: Alignment.centerLeft,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           ClipOval(
             child: CachedNetworkImage(
@@ -91,41 +90,59 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
             ),
           ),
-          Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: Text(
-              status.user.name,
-              style: TextStyle(
-                fontSize: 14,
-                color: ColorConfig.colorText1,
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                status.user.name,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: ColorConfig.colorText1,
+                ),
               ),
             ),
           ),
-          Container(
-            color: ColorConfig.colorBackground1,
-            alignment: Alignment.centerRight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Image.asset("assets/images/zan.png", width: 24, height: 24),
-                Text(
-                  formatNumberZh(status.likeCount),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: ColorConfig.colorText1,
-                  ),
+          Row(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                padding: EdgeInsets.only(left: 10, right: 3),
+                child: Row(
+                  children: <Widget>[
+                    Image.asset("assets/images/zan.png", width: 24, height: 24),
+                    Padding(
+                      padding: EdgeInsets.only(left: 3),
+                      child: Text(
+                        formatNumberZh(status.likeCount),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: ColorConfig.colorText1,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Image.asset("assets/images/comment.png", width: 24, height: 24),
-                Text(
-                  formatNumberZh(status.commentCount),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: ColorConfig.colorText1,
-                  ),
+              ),
+              Container(
+                height: double.infinity,
+                padding: EdgeInsets.only(left: 10, right: 3),
+                child: Row(
+                  children: <Widget>[
+                    Image.asset("assets/images/comment.png", width: 24, height: 24),
+                    Padding(
+                      padding: EdgeInsets.only(left: 3),
+                      child: Text(
+                        formatNumberZh(status.commentCount),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: ColorConfig.colorText1,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -133,83 +150,84 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
   }
 
   Widget _createVideoContent(Status status) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          height: _itemHeight,
-          width: double.infinity,
-          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
-          decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            child: CachedNetworkImage(imageUrl: status.video.imageUrl, fit: BoxFit.fitWidth),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          height: _itemHeight,
-          alignment: Alignment.topCenter,
-          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
-            child: Image.asset(
-              "assets/images/shadow_up.png",
-              fit: BoxFit.fill,
-              width: double.infinity,
-              height: 100,
+    return Container(
+      height: 180,
+      width: double.infinity,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              child: CachedNetworkImage(imageUrl: status.video.imageUrl, fit: BoxFit.fitWidth),
             ),
           ),
-        ),
-        Container(
-          width: double.infinity,
-          height: _itemHeight,
-          alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
-            child: Image.asset(
-              "assets/images/shadow_down.png",
-              fit: BoxFit.fill,
-              width: double.infinity,
-              height: 80,
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.topCenter,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+              child: Image.asset(
+                "assets/images/shadow_up.png",
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: 100,
+              ),
             ),
           ),
-        ),
-        Container(
-          height: _itemHeight,
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: IconButton(
-            padding: EdgeInsets.zero,
-            icon: Image.asset("assets/images/play.png"),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
-            },
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
-          child: Text(
-            status.title,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white,
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.bottomCenter,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+              child: Image.asset(
+                "assets/images/shadow_down.png",
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: 80,
+              ),
             ),
           ),
-        ),
-        Container(
-          height: _itemHeight,
-          alignment: Alignment.bottomRight,
-          margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: Text(
-            "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              icon: Image.asset("assets/images/play.png"),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
+              },
             ),
           ),
-        )
-      ],
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+            child: Text(
+              status.title,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Container(
+            height: double.infinity,
+            alignment: Alignment.bottomRight,
+            padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+            child: Text(
+              "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 

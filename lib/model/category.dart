@@ -5,10 +5,9 @@ class Category {
   Category();
 
   factory Category.fromJson(Map<String, dynamic> json) {
-    var category = Category();
-    category.cid = json['cid'];
-    category.name = json['name'];
-    return category;
+    return Category()
+      ..cid = json['cid']
+      ..name = json['name'];
   }
 
   @override

@@ -11,13 +11,12 @@ class Video {
 
   factory Video.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    var video = Video();
-    video.url = json['video_hd'];
-    video.duration = json['video_duration'];
-    video.imageUrl = json['image_url'];
-    video.imageWidth = json['image_width'];
-    video.imageHeight = json['image_height'];
-    return video;
+    return Video()
+      ..url = json['video_hd']
+      ..duration = json['video_duration']
+      ..imageUrl = json['image_url']
+      ..imageWidth = json['image_width']
+      ..imageHeight = json['image_height'];
   }
 
   @override

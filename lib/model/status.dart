@@ -20,24 +20,20 @@ class Status {
 
   factory Status.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-
-    var status = Status();
-    status.lid = json['lid'];
-    status.sid = json['sid'];
-    status.type = json['type'];
-    status.title = json['title'] ?? "";
-    status.summary = json['summary'];
-    var jsonUser = json['user'];
-    status.user = User.fromJson(jsonUser);
-    status.isLike = json['is_like'];
-    status.playCount = json['play_count'];
-    status.likeCount = json['like_count'];
-    status.commentCount = json['comment_count'];
-    var jsonVideo = json['video'];
-    status.video = Video.fromJson(jsonVideo);
-    status.createTime = json['create_time'];
-    status.source = json['source'];
-    return status;
+    return Status()
+      ..lid = json['lid']
+      ..sid = json['sid']
+      ..type = json['type']
+      ..title = json['title'] ?? ""
+      ..summary = json['summary']
+      ..user = User.fromJson(json['user'])
+      ..isLike = json['is_like']
+      ..playCount = json['play_count']
+      ..likeCount = json['like_count']
+      ..commentCount = json['comment_count']
+      ..video = Video.fromJson(json['video'])
+      ..createTime = json['create_time']
+      ..source = json['source'];
   }
 
   @override

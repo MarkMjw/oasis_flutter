@@ -11,13 +11,12 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    var comment = Comment();
-    comment.cid = json['cid'];
-    comment.text = json['text'];
-    comment.user = User.fromJson(json['user']);
-    comment.reply = json['reply'];
-    comment.createTime = json['create_time'];
-    return comment;
+    return Comment()
+      ..cid = json['cid']
+      ..text = json['text']
+      ..user = User.fromJson(json['user'])
+      ..reply = json['reply']
+      ..createTime = json['create_time'];
   }
 
   @override

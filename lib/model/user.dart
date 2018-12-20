@@ -8,13 +8,18 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    var user = User();
-    user.id = json['id'];
-    user.name = json['name'];
-    user.image = json['image'];
-    user.description = json['description'];
-    return user;
+    return User()
+      ..id = json['id']
+      ..name = json['name']
+      ..image = json['image']
+      ..description = json['description'];
   }
+
+  User.fromJson1(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        image = json['image'],
+        description = json['description'];
 
   @override
   String toString() {
