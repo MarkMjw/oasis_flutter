@@ -52,9 +52,19 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
             child: ListView.builder(
               padding: EdgeInsets.all(5),
               controller: _scrollController,
-              itemCount: _items.length * 2 - 1,
+              itemCount: _items.length * 2,
               itemBuilder: (BuildContext context, int position) {
-                if (position.isOdd) return Divider(color: Colors.transparent, height: 5);
+                if (position.isOdd) {
+                  if (position == _items.length * 2 - 1) {
+                    if (_hasMore) {
+                      return _buildLoadMore();
+                    } else {
+                      return Container();
+                    }
+                  } else {
+                    return Divider(color: Colors.transparent, height: 5);
+                  }
+                }
 
                 final index = position ~/ 2;
                 return _buildRow(index);
@@ -218,6 +228,28 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLoadMore() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          width: 24,
+          height: 24,
+          margin: EdgeInsets.only(right: 10),
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+        Text(
+          "加载中...",
+          style: TextStyle(
+            color: ColorConfig.colorText1,
+            fontSize: 15,
+          ),
+        ),
+      ],
     );
   }
 
