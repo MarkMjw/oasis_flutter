@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    initTab();
+    _initTab();
     super.initState();
   }
 
@@ -39,12 +39,14 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: getTabIcon(0), title: getTabText(0)),
-          BottomNavigationBarItem(icon: getTabIcon(1), title: getTabText(1)),
-          BottomNavigationBarItem(icon: getTabIcon(2), title: getTabText(2)),
-          BottomNavigationBarItem(icon: getTabIcon(3), title: getTabText(3)),
+          _buildItem(0),
+          _buildItem(1),
+          _buildItem(2),
+          _buildItem(3),
         ],
         currentIndex: _tabIndex,
+        type: BottomNavigationBarType.fixed,
+        iconSize: 24,
         fixedColor: ColorConfig.colorPrimary,
         onTap: (index) {
           setState(() {
@@ -56,48 +58,30 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget getTabIcon(int curIndex) {
-    var image;
-    if (curIndex == _tabIndex) {
-      image = tabImages[curIndex][1];
-    } else {
-      image = tabImages[curIndex][0];
-    }
-    return Center(child: image);
+  BottomNavigationBarItem _buildItem(int index) {
+    return BottomNavigationBarItem(
+        icon: tabImages[index][index == _tabIndex ? 1 : 0],
+        title: Text(
+          tabTitles[index],
+          style: TextStyle(
+            color: index == _tabIndex ? ColorConfig.colorPrimary : Color(0x80000000),
+          ),
+        ));
   }
 
-  Color getTabTextColor(int curIndex) {
-    var color;
-    if (curIndex == _tabIndex) {
-      color = ColorConfig.colorPrimary;
-    } else {
-      color = Color(0x80000000);
-    }
-    return color;
-  }
-
-  Widget getTabText(int curIndex) {
-    return Text(
-      tabTitles[curIndex],
-      style: TextStyle(
-        color: getTabTextColor(curIndex),
-      ),
-    );
-  }
-
-  void initTab() {
+  void _initTab() {
     tabTitles = ['首页', '故事', '金币', '我的'];
     tabImages = [
-      [getTabImage('assets/images/video.png'), getTabImage('assets/images/video_selected.png')],
-      [getTabImage('assets/images/story.png'), getTabImage('assets/images/story_selected.png')],
-      [getTabImage('assets/images/money.png'), getTabImage('assets/images/money_selected.png')],
-      [getTabImage('assets/images/mine.png'), getTabImage('assets/images/mine_selected.png')],
+      [_getTabImage('assets/images/video.png'), _getTabImage('assets/images/video_selected.png')],
+      [_getTabImage('assets/images/story.png'), _getTabImage('assets/images/story_selected.png')],
+      [_getTabImage('assets/images/money.png'), _getTabImage('assets/images/money_selected.png')],
+      [_getTabImage('assets/images/mine.png'), _getTabImage('assets/images/mine_selected.png')],
     ];
     _pages = [HomePage(), StoryPage(), MoneyPage(), MinePage()];
     pageController = PageController(initialPage: _tabIndex, keepPage: true);
   }
 
-  Image getTabImage(path) {
-    return new Image.asset(path, width: 32.0, height: 32.0);
+  Image _getTabImage(path) {
+    return new Image.asset(path);
   }
 }

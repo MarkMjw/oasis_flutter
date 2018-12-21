@@ -99,6 +99,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                 ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
