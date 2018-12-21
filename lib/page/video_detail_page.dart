@@ -39,96 +39,12 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       body: Column(
         children: <Widget>[
           _buildPlayer(),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            alignment: Alignment.topLeft,
-            child: Text(
-              widget.status.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
-            alignment: Alignment.topLeft,
-            child: Text(
-              widget.status.summary,
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 13.0,
-                color: ColorConfig.colorText1,
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            alignment: Alignment.topLeft,
-            child: Text(
-              "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "MM-dd HH:mm")}发布",
-              style: TextStyle(
-                fontSize: 11,
-                color: Color(0xff9d9d9d),
-              ),
-            ),
-          ),
-          _buildShareLayout(),
-          Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            height: 1,
-            color: ColorConfig.colorBackground1,
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            height: 48,
-            child: Row(
-              children: <Widget>[
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: widget.status.user.image,
-                    fit: BoxFit.fill,
-                    width: 36,
-                    height: 36,
-                    placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(left: 10),
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.status.user.name,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10, top: 1),
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.status.user.description,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: ColorConfig.colorText1,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          _buildTitle(),
+          _buildSummary(),
+          _buildPlayInfo(),
+          _buildShare(),
+          Container(margin: EdgeInsets.only(left: 10, right: 10), height: 1, color: ColorConfig.colorBackground1),
+          _buildAuthor(),
           Container(height: 5, color: ColorConfig.colorBackground1),
         ],
       ),
@@ -161,7 +77,54 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     );
   }
 
-  Container _buildShareLayout() {
+  Container _buildTitle() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      alignment: Alignment.topLeft,
+      child: Text(
+        widget.status.title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Container _buildSummary() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+      alignment: Alignment.topLeft,
+      child: Text(
+        widget.status.summary,
+        maxLines: 4,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: 13.0,
+          color: ColorConfig.colorText1,
+        ),
+      ),
+    );
+  }
+
+  Container _buildPlayInfo() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      alignment: Alignment.topLeft,
+      child: Text(
+        "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "MM-dd HH:mm")}发布",
+        style: TextStyle(
+          fontSize: 11,
+          color: Color(0xff9d9d9d),
+        ),
+      ),
+    );
+  }
+
+  Container _buildShare() {
     return Container(
       height: 48,
       margin: EdgeInsets.only(left: 10, right: 10),
@@ -178,7 +141,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
             child: Image.asset(
               "assets/images/icon_weibo.png",
               width: 23,
@@ -186,7 +149,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
             child: Image.asset(
               "assets/images/icon_wechat.png",
               width: 23,
@@ -194,7 +157,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
             child: Image.asset(
               "assets/images/icon_pyq.png",
               width: 20,
@@ -202,7 +165,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
             child: Image.asset(
               "assets/images/icon_qq.png",
               width: 20,
@@ -210,12 +173,61 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5,right: 8,bottom: 5),
+            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
             child: Image.asset(
               "assets/images/icon_qzone.png",
               width: 20,
               height: 20,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildAuthor() {
+    return Container(
+      margin: EdgeInsets.only(left: 10, right: 10),
+      height: 48,
+      child: Row(
+        children: <Widget>[
+          ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: widget.status.user.image,
+              fit: BoxFit.fill,
+              width: 36,
+              height: 36,
+              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+            ),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(left: 10),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  widget.status.user.name,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10, top: 1),
+                alignment: Alignment.topLeft,
+                child: Text(
+                  widget.status.user.description,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: ColorConfig.colorText1,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
