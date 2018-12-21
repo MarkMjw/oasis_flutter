@@ -125,10 +125,10 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               ),
             ),
           ),
-          Container(
-            height: double.infinity,
-            alignment: Alignment.bottomRight,
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+          Positioned(
+            bottom: 5,
+            right: 10,
+            left: 10,
             child: Text(
               "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
               style: TextStyle(

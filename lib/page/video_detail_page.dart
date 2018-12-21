@@ -149,7 +149,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         _buildSummary(),
         _buildPlayInfo(),
         _buildShare(),
-        Container(margin: EdgeInsets.only(left: 10, right: 10), height: 1, color: ColorConfig.colorBackground1),
+        Container(margin: EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.colorBackground1),
         _buildAuthor(),
         Container(height: 5, color: ColorConfig.colorBackground1),
       ],
@@ -273,6 +273,18 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       height: 48,
       child: Row(
         children: <Widget>[
+//          Container(
+//            width: 36,
+//            height: 36,
+//            child: CircleAvatar(
+//              backgroundImage: FadeInImage.assetNetwork(
+//                placeholder: "assets/images/default_head.png",
+//                image: widget.status.user.image,
+//                fit: BoxFit.cover,
+//              ).image,
+//              radius: 100,
+//            ),
+//          ),
           ClipOval(
             child: CachedNetworkImage(
               imageUrl: widget.status.user.image,
