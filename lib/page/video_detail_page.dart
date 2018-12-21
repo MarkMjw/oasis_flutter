@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/config/api.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/comment.dart';
@@ -40,6 +41,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     });
   }
 
+  int _itemCount() {
+    return _items?.isNotEmpty == true ? _items.length * 2 : 1;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -53,16 +58,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     super.dispose();
   }
 
-  int itemCount() {
-    return _items?.isEmpty == true ? 0 : _items.length * 2;
-  }
-
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
     return Scaffold(
-      appBar: AppBar(
-        title: Text("视频详情"),
-      ),
       body: Column(
         children: <Widget>[
           _buildPlayer(),
@@ -76,6 +75,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     return Stack(
       children: <Widget>[
         Container(
+          color: ColorConfig.colorBackground1,
           child: _controller.value.initialized
               ? AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
@@ -94,6 +94,16 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
             ),
           ),
         ),
+        Container(
+          width: 48,
+          height: 48,
+          child: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
       ],
     );
   }
@@ -104,12 +114,13 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         behavior: ScrollBehaviorExt(),
         child: ListView.builder(
           controller: _scrollController,
-          itemCount: itemCount(),
+          itemCount: _itemCount(),
+          padding: EdgeInsets.all(0),
           itemBuilder: (BuildContext context, int position) {
             if (position == 0) {
               return _buildHeader();
             } else if (position.isOdd) {
-              if (position == itemCount() - 1) {
+              if (position == _itemCount() - 1) {
                 if (_hasMore) {
                   return _buildLoadMore();
                 } else {
@@ -121,10 +132,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                   child: Divider(color: ColorConfig.colorDivider, height: 1),
                 );
               }
+            } else {
+              int index = position - 1;
+              return _buildCommentRow(index ~/ 2);
             }
-
-            final index = position ~/ 2;
-            return _buildCommentRow(index);
           },
         ),
       ),
@@ -145,18 +156,21 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     );
   }
 
-  Container _buildTitle() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-      alignment: Alignment.topLeft,
-      child: Text(
-        widget.status.title,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+  Widget _buildTitle() {
+    return Offstage(
+      offstage: widget.status?.title?.trim()?.isEmpty == true,
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        alignment: Alignment.topLeft,
+        child: Text(
+          widget.status.title,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
       ),
     );
@@ -268,36 +282,38 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                alignment: Alignment.topLeft,
-                child: Text(
-                  widget.status.user.name,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.black,
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    widget.status.user.name,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10, top: 1),
-                alignment: Alignment.topLeft,
-                child: Text(
-                  widget.status.user.description,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: ColorConfig.colorText1,
+                Container(
+                  margin: EdgeInsets.only(left: 10, top: 1),
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    widget.status.user.description,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: ColorConfig.colorText1,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
