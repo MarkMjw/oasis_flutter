@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _tabIndex,
         type: BottomNavigationBarType.fixed,
-        iconSize: 24,
+        iconSize: 28,
         fixedColor: ColorConfig.colorPrimary,
         onTap: (index) {
           setState(() {
@@ -82,6 +82,6 @@ class _MainPageState extends State<MainPage> {
   }
 
   Image _getTabImage(path) {
-    return new Image.asset(path);
+    return new Image.asset(path, width: 28, height: 28);
   }
 }

@@ -181,6 +181,8 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               padding: EdgeInsets.only(left: 10),
               child: Text(
                 status.user.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 14,
                   color: ColorConfig.colorText1,
