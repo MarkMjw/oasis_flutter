@@ -57,11 +57,14 @@ flutter:
     - assets/images/default_head.png
     - assets/images/comment.png
     - assets/images/zan.png
-    - assets/images/icon_weibo.png
-    - assets/images/icon_wechat.png
-    - assets/images/icon_pyq.png
-    - assets/images/icon_qq.png
-    - assets/images/icon_qzone.png
+    - assets/images/icon_go_weibo.webp
+    - assets/images/icon_go_weibo_pressed.webp
+    - assets/images/icon_pyq.webp
+    - assets/images/icon_pyq_pressed.webp
+    - assets/images/icon_wechat.webp
+    - assets/images/icon_wechat_pressed.webp
+    - assets/images/icon_weibo.webp
+    - assets/images/icon_weibo_pressed.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

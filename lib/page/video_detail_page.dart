@@ -146,7 +146,6 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     return Column(
       children: <Widget>[
         _buildTitle(),
-        _buildSummary(),
         _buildPlayInfo(),
         _buildShare(),
         Container(margin: EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.colorBackground1),
@@ -164,7 +163,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         alignment: Alignment.topLeft,
         child: Text(
           widget.status.title,
-          maxLines: 2,
+          maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 18.0,
@@ -176,31 +175,15 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     );
   }
 
-  Container _buildSummary() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
-      alignment: Alignment.topLeft,
-      child: Text(
-        widget.status.summary,
-        maxLines: 4,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: 13.0,
-          color: ColorConfig.colorText1,
-        ),
-      ),
-    );
-  }
-
   Container _buildPlayInfo() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       alignment: Alignment.topLeft,
       child: Text(
-        "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "MM-dd HH:mm")}发布",
+        "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "yyyy年MM月dd日")}发布",
         style: TextStyle(
-          fontSize: 11,
-          color: Color(0xff9d9d9d),
+          fontSize: 12,
+          color: Color(0xff4c4c4c),
         ),
       ),
     );
@@ -212,54 +195,36 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       margin: EdgeInsets.only(left: 10, right: 10),
       child: Row(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: 5),
-            child: Text(
-              "分享到:",
-              style: TextStyle(
-                fontSize: 11,
-                color: Color(0xff9d9d9d),
-              ),
+          Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: Image.asset(
+              "assets/images/icon_weibo.webp",
+              width: 75,
+              height: 25,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
+            padding: EdgeInsets.only(right: 8),
             child: Image.asset(
-              "assets/images/icon_weibo.png",
-              width: 23,
-              height: 23,
+              "assets/images/icon_wechat.webp",
+              width: 75,
+              height: 25,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
+            padding: EdgeInsets.only(right: 8),
             child: Image.asset(
-              "assets/images/icon_wechat.png",
-              width: 23,
-              height: 23,
+              "assets/images/icon_pyq.webp",
+              width: 75,
+              height: 25,
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
+            padding: EdgeInsets.only(right: 8),
             child: Image.asset(
-              "assets/images/icon_pyq.png",
-              width: 20,
-              height: 20,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
-            child: Image.asset(
-              "assets/images/icon_qq.png",
-              width: 20,
-              height: 20,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 8, top: 5, right: 8, bottom: 5),
-            child: Image.asset(
-              "assets/images/icon_qzone.png",
-              width: 20,
-              height: 20,
+              "assets/images/icon_go_weibo.webp",
+              width: 75,
+              height: 25,
             ),
           ),
         ],
