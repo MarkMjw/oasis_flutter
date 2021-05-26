@@ -61,12 +61,14 @@ class _MainPageState extends State<MainPage> {
   BottomNavigationBarItem _buildItem(int index) {
     return BottomNavigationBarItem(
         icon: tabImages[index][index == _tabIndex ? 1 : 0],
-        title: Text(
-          tabTitles[index],
-          style: TextStyle(
-            color: index == _tabIndex ? ColorConfig.colorPrimary : Color(0x80000000),
-          ),
-        ));
+        label: tabTitles[index],
+        // title: Text(
+        //   tabTitles[index],
+        //   style: TextStyle(
+        //     color: index == _tabIndex ? ColorConfig.colorPrimary : Color(0x80000000),
+        //   ),
+        // )
+    );
   }
 
   void _initTab() {

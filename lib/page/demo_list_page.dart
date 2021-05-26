@@ -73,7 +73,7 @@ class _ListPageState extends State<DemoListPage> {
 
   void _loadData(bool isRefresh) async {
     String url = "https://app.kangzubin.com/iostips/api/feed/list?page=$_curPage&from=flutter-app&version=1.0";
-    Response response = await get(url);
+    Response response = await get(Uri.parse(url));
 
     final body = json.decode(response.body);
     final int code = body["code"];

@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     // 异步请求回来的数据无法显示
     String url = "${Api.HOST}/user/profile?${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(url);
+    Response response = await get(Uri.parse(url));
 
     final body = json.decode(response.body);
     final int code = body["code"];

@@ -31,7 +31,7 @@ class _DemoPageState extends State<DemoPage> {
               margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
               height: 45,
               width: double.infinity,
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text("Layout demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DemoLayoutPage()));
@@ -42,7 +42,7 @@ class _DemoPageState extends State<DemoPage> {
               margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
               height: 45,
               width: double.infinity,
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text("List demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DemoListPage()));

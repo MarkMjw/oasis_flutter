@@ -46,6 +46,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
         body: RefreshIndicator(
             color: ColorConfig.colorPrimary,
@@ -173,7 +174,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               fit: BoxFit.fill,
               width: 36,
               height: 36,
-              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+              // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
             ),
           ),
           Expanded(
@@ -258,7 +259,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
   void _loadData(bool isRefresh) async {
     String url = "${Api.HOST}/status/list?cid=${widget.cid}&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(url);
+    Response response = await get(Uri.parse(url));
 
     final body = json.decode(response.body);
     final int code = body["code"];

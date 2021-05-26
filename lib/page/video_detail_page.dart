@@ -76,7 +76,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       children: <Widget>[
         Container(
           color: ColorConfig.colorBackground1,
-          child: _controller.value.initialized
+          child: _controller.value.isInitialized
               ? AspectRatio(
                   aspectRatio: _controller.value.aspectRatio,
                   child: VideoPlayer(_controller),
@@ -256,7 +256,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               fit: BoxFit.fill,
               width: 36,
               height: 36,
-              placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+              // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
             ),
           ),
           Expanded(
@@ -312,7 +312,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                 fit: BoxFit.fill,
                 width: 36,
                 height: 36,
-                placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+                // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
               ),
             ),
           ),
@@ -402,10 +402,9 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   void _loadData() async {
-    String url =
-        "${Api.HOST}/comment/list?lid=${widget.status.lid}&type=${widget.status.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/comment/list?lid=${widget.status.lid}&type=${widget.status.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(url);
+    Response response = await get(Uri.parse(url));
 
     final body = json.decode(response.body);
     final int code = body["code"];
