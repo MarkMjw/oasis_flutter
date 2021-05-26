@@ -1,13 +1,12 @@
 class User {
-  int id;
-  String name;
-  String image;
-  String description;
+  int id = 0;
+  String name = "";
+  String image = "";
+  String description = "";
 
   User();
 
   factory User.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
     return User()
       ..id = json['id']
       ..name = json['name']

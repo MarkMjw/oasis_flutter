@@ -164,7 +164,7 @@ class _LayoutPageState extends StatelessWidget {
 class RoundInnerSquareBox extends StatelessWidget {
   static const double gap = 12.0;
 
-  final Widget child;
+  final Widget? child;
 
   RoundInnerSquareBox({
     @required this.child,
@@ -196,7 +196,7 @@ class LineTips extends StatelessWidget {
     this.margin = defaultMargin,
   });
 
-  final Widget title;
+  final Widget? title;
   final EdgeInsetsGeometry margin;
 
   @override
@@ -215,7 +215,7 @@ class LineTips extends StatelessWidget {
               height: 1.0,
             ),
           ),
-          title,
+          title!,
           Expanded(
             child: Container(
               margin: const EdgeInsets.only(
@@ -232,7 +232,7 @@ class LineTips extends StatelessWidget {
 }
 
 class WorkTotalItem extends StatelessWidget {
-  final String title;
+  final String? title;
 
   WorkTotalItem({@required this.title});
 

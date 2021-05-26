@@ -1,16 +1,15 @@
 class Video {
-  String url;
-  int width;
-  int height;
-  int duration;
-  String imageUrl;
-  int imageHeight;
-  int imageWidth;
+  String url = "";
+  int width = 0;
+  int height = 0;
+  int duration = 0;
+  String imageUrl = "";
+  int imageHeight = 0;
+  int imageWidth = 0;
 
   Video();
 
   factory Video.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
     return Video()
       ..url = json['video_hd']
       ..duration = json['video_duration']

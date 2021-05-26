@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Category> _cates = [];
-  TabController _controller;
+  TabController? _controller;
 
   @override
   void initState() {

@@ -2,24 +2,23 @@ import 'package:flutter_app/model/user.dart';
 import 'package:flutter_app/model/video.dart';
 
 class Status {
-  int lid;
-  String sid;
-  int type;
-  String title;
-  String summary;
-  User user;
-  bool isLike;
-  int playCount;
-  int likeCount;
-  int commentCount;
-  Video video;
-  int createTime;
-  String source;
+  int lid = 0;
+  String sid = "";
+  int type = 0;
+  String title = "";
+  String summary = "";
+  User user = User();
+  bool isLike = false;
+  int playCount = 0;
+  int likeCount = 0;
+  int commentCount = 0;
+  Video video = Video();
+  int createTime = 0;
+  String source = "";
 
   Status();
 
   factory Status.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
     return Status()
       ..lid = json['lid']
       ..sid = json['sid']

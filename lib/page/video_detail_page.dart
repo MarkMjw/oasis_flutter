@@ -13,16 +13,16 @@ import 'package:http/http.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoDetailPage extends StatefulWidget {
-  final Status status;
+  final Status? status;
 
-  VideoDetailPage({Key key, this.status}) : super(key: key);
+  VideoDetailPage({Key? key, this.status}) : super(key: key);
 
   @override
   _VideoDetailPageState createState() => _VideoDetailPageState();
 }
 
 class _VideoDetailPageState extends State<VideoDetailPage> {
-  VideoPlayerController _controller;
+  VideoPlayerController? _controller;
   bool _isPlaying = false;
 
   var _items = [];
@@ -42,7 +42,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   int _itemCount() {
-    return _items?.isNotEmpty == true ? _items.length * 2 : 1;
+    return _items.isNotEmpty == true ? _items.length * 2 : 1;
   }
 
   @override
@@ -54,7 +54,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -76,10 +76,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       children: <Widget>[
         Container(
           color: ColorConfig.colorBackground1,
-          child: _controller.value.isInitialized
+          child: _controller!.value.isInitialized
               ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
+                  aspectRatio: _controller!.value.aspectRatio,
+                  child: VideoPlayer(_controller!),
                 )
               : Container(),
         ),
@@ -89,8 +89,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
           child: Center(
             child: IconButton(
               padding: EdgeInsets.zero,
-              icon: Image.asset(_controller.value.isPlaying ? "assets/images/pause.png" : "assets/images/play.png"),
-              onPressed: _controller.value.isPlaying ? _controller.pause : _controller.play,
+              icon: Image.asset(_controller!.value.isPlaying ? "assets/images/pause.png" : "assets/images/play.png"),
+              onPressed: _controller!.value.isPlaying ? _controller!.pause : _controller!.play,
             ),
           ),
         ),
@@ -162,7 +162,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
         alignment: Alignment.topLeft,
         child: Text(
-          widget.status.title,
+          widget.status!.title,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -180,7 +180,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       alignment: Alignment.topLeft,
       child: Text(
-        "${formatNumberZh(widget.status.playCount)}次播放  |  ${formatDate(widget.status.createTime, "yyyy年MM月dd日")}发布",
+        "${formatNumberZh(widget.status!.playCount)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
         style: TextStyle(
           fontSize: 12,
           color: Color(0xff4c4c4c),
@@ -252,7 +252,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 //          ),
           ClipOval(
             child: CachedNetworkImage(
-              imageUrl: widget.status.user.image,
+              imageUrl: widget.status!.user.image,
               fit: BoxFit.fill,
               width: 36,
               height: 36,
@@ -269,7 +269,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                   margin: EdgeInsets.only(left: 10),
                   alignment: Alignment.topLeft,
                   child: Text(
-                    widget.status.user.name,
+                    widget.status!.user.name,
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.black,
@@ -280,7 +280,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                   margin: EdgeInsets.only(left: 10, top: 1),
                   alignment: Alignment.topLeft,
                   child: Text(
-                    widget.status.user.description,
+                    widget.status!.user.description,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -385,10 +385,10 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   void initPlayer() {
-    print("play url:${widget.status.video.url}");
-    _controller = VideoPlayerController.network(widget.status.video.url)
+    print("play url:${widget.status!.video.url}");
+    _controller = VideoPlayerController.network(widget.status!.video.url)
       ..addListener(() {
-        final bool isPlaying = _controller.value.isPlaying;
+        final bool isPlaying = _controller!.value.isPlaying;
         if (isPlaying != _isPlaying) {
           setState(() {
             _isPlaying = isPlaying;
@@ -402,7 +402,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   void _loadData() async {
-    String url = "${Api.HOST}/comment/list?lid=${widget.status.lid}&type=${widget.status.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/comment/list?lid=${widget.status!.lid}&type=${widget.status!.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
     Response response = await get(Uri.parse(url));
 

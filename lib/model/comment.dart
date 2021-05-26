@@ -1,16 +1,15 @@
 import 'package:flutter_app/model/user.dart';
 
 class Comment {
-  int cid;
-  String text;
-  User user;
-  bool reply;
-  int createTime;
+  int cid = 0;
+  String text = "";
+  User user = User();
+  bool reply = false;
+  int createTime = 0;
 
   Comment();
 
   factory Comment.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
     return Comment()
       ..cid = json['cid']
       ..text = json['text']

@@ -12,7 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class VideoPage extends StatefulWidget {
   final String cid;
 
-  VideoPage({Key key, this.cid = "1"}) : super(key: key);
+  VideoPage({Key? key, this.cid = "1"}) : super(key: key);
 
   @override
   _VideoPageState createState() => _VideoPageState();
