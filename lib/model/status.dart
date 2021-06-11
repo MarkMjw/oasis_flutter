@@ -2,14 +2,13 @@ import 'package:flutter_app/model/user.dart';
 import 'package:flutter_app/model/video.dart';
 
 class Status {
-  int lid = 0;
-  String sid = "";
+  int id = 0;
   int type = 0;
   String title = "";
-  String summary = "";
+  String text = "";
+  String cover = "";
   User user = User();
   bool isLike = false;
-  int playCount = 0;
   int likeCount = 0;
   int commentCount = 0;
   Video video = Video();
@@ -20,23 +19,21 @@ class Status {
 
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status()
-      ..lid = json['lid']
-      ..sid = json['sid']
+      ..id = json['id']
       ..type = json['type']
       ..title = json['title'] ?? ""
-      ..summary = json['summary']
+      ..text = json['text']
+      ..cover = json['cover']
       ..user = User.fromJson(json['user'])
       ..isLike = json['is_like']
-      ..playCount = json['play_count']
-      ..likeCount = json['like_count']
-      ..commentCount = json['comment_count']
-      ..video = Video.fromJson(json['video'])
+      ..likeCount = json['like_total']
+      ..commentCount = json['comment_total']
       ..createTime = json['create_time']
       ..source = json['source'];
   }
 
   @override
   String toString() {
-    return 'Status{lid: $lid, sid: $sid, type: $type, title: $title, summary: $summary, user: $user, isLike: $isLike, playCount: $playCount, likeCount: $likeCount, commentCount: $commentCount, video: $video, createTime: $createTime, source: $source}';
+    return 'Status{id: $id, type: $type, title: $title, text: $text, cover: $cover, user: $user, isLike: $isLike, likeCount: $likeCount, commentCount: $commentCount, video: $video, createTime: $createTime, source: $source}';
   }
 }

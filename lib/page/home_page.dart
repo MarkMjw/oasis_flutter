@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       body: TabBarView(
         children: _cates.map((cate) {
-          return VideoPage(cid: cate.cid);
+          return VideoPage(cid: cate.id);
         }).toList(),
         controller: _controller,
       ),
@@ -68,61 +68,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void _initTabs() {
     var cate1 = Category();
-    cate1.cid = "1";
-    cate1.name = "推荐";
+    cate1.id = 2;
+    cate1.name = "精选";
 
     var cate2 = Category();
-    cate2.cid = "3";
-    cate2.name = "搞笑";
+    cate2.id = 16;
+    cate2.name = "明星";
 
     var cate3 = Category();
-    cate3.cid = "7";
-    cate3.name = "影视";
+    cate3.id = 18;
+    cate3.name = "摄影";
 
     var cate4 = Category();
-    cate4.cid = "5";
-    cate4.name = "萌趣";
+    cate4.id = 10;
+    cate4.name = "旅行";
 
     var cate5 = Category();
-    cate5.cid = "6";
-    cate5.name = "明星";
-
-    var cate6 = Category();
-    cate6.cid = "4";
-    cate6.name = "音乐";
-
-    var cate7 = Category();
-    cate7.cid = "8";
-    cate7.name = "体育";
-
-    var cate8 = Category();
-    cate8.cid = "9";
-    cate8.name = "游戏";
+    cate5.id = 12;
+    cate5.name = "运动";
 
     _cates.add(cate1);
     _cates.add(cate2);
     _cates.add(cate3);
     _cates.add(cate4);
     _cates.add(cate5);
-    _cates.add(cate6);
-    _cates.add(cate7);
-    _cates.add(cate8);
 
     _controller = TabController(length: _cates.length, vsync: this);
   }
 
   void _fetchTabs() async {
     // 异步请求回来的数据无法显示
-    String url = "${Api.HOST}/user/profile?${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/channel/list?${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(Uri.parse(url));
+    Response response = await get(Uri.parse(url), headers: {
+      "gsid": "O1dGmriqebHVuxbd6uJCMS5AbuPtmezAlQJktRL3cFJvY8hh5aVfcF1lLTL20uOmSKP3/ifRf9bSAlkUWLGPlcVRUnP52P6H6KuAq0qUEt0kB4r4zrIa2+XKJEKCzluH",
+      "User-Agent": "HUAWEI-LIO-AL00__oasis__3.6.5__Android__Android10"
+    });
 
     final body = json.decode(response.body);
     final int code = body["code"];
     if (code == 0) {
-      final cids = body["data"]["cids"];
+      final cates = body["data"]["channels"];
       _cates.clear();
-      cids.forEach((item) => _cates.add(Category.fromJson(item)));
+      cates.forEach((item) => _cates.add(Category.fromJson(item)));
 
       setState(() {
         _controller = TabController(length: _cates.length, vsync: this);

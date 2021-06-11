@@ -8,17 +8,11 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User()
-      ..id = json['id']
+      ..id = json['uid']
       ..name = json['name']
       ..image = json['image']
       ..description = json['description'];
   }
-
-  User.fromJson1(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        image = json['image'],
-        description = json['description'];
 
   @override
   String toString() {

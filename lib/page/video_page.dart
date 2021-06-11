@@ -10,9 +10,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class VideoPage extends StatefulWidget {
-  final String cid;
+  final int cid;
 
-  VideoPage({Key? key, this.cid = "1"}) : super(key: key);
+  VideoPage({Key? key, this.cid = 0}) : super(key: key);
 
   @override
   _VideoPageState createState() => _VideoPageState();
@@ -99,7 +99,7 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
             decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(5)),
-              child: CachedNetworkImage(imageUrl: status.video.imageUrl, fit: BoxFit.fitWidth),
+              child: CachedNetworkImage(imageUrl: status.cover, fit: BoxFit.fitWidth),
             ),
           ),
           _buildShadow("assets/images/shadow_up.png", Alignment.topCenter, 100),
@@ -112,7 +112,8 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
               padding: EdgeInsets.zero,
               icon: Image.asset("assets/images/play.png"),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
+                // TODO detail
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => VideoDetailPage(status: status)));
               },
             ),
           ),
@@ -131,7 +132,8 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
             right: 10,
             left: 10,
             child: Text(
-              "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
+              // "${formatDuration(status.video.duration)}  |  ${formatNumberZh(status.playCount)}次播放",
+              "0次播放",
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.white,
@@ -257,9 +259,12 @@ class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixi
   }
 
   void _loadData(bool isRefresh) async {
-    String url = "${Api.HOST}/status/list?cid=${widget.cid}&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/timeline/discovery?channel_id=${widget.cid}&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(Uri.parse(url));
+    Response response = await get(Uri.parse(url), headers: {
+      "gsid": "O1dGmriqebHVuxbd6uJCMS5AbuPtmezAlQJktRL3cFJvY8hh5aVfcF1lLTL20uOmSKP3/ifRf9bSAlkUWLGPlcVRUnP52P6H6KuAq0qUEt0kB4r4zrIa2+XKJEKCzluH",
+      "User-Agent": "HUAWEI-LIO-AL00__oasis__3.6.5__Android__Android10"
+    });
 
     final body = json.decode(response.body);
     final int code = body["code"];

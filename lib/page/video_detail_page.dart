@@ -180,7 +180,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       alignment: Alignment.topLeft,
       child: Text(
-        "${formatNumberZh(widget.status!.playCount)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
+        "${formatNumberZh(widget.status!.commentCount)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
         style: TextStyle(
           fontSize: 12,
           color: Color(0xff4c4c4c),
@@ -402,7 +402,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   void _loadData() async {
-    String url = "${Api.HOST}/comment/list?lid=${widget.status!.lid}&type=${widget.status!.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
+    String url = "${Api.HOST}/comment/list?lid=${widget.status!.id}&type=${widget.status!.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
     Response response = await get(Uri.parse(url));
 

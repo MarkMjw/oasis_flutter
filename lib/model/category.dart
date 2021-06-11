@@ -1,17 +1,17 @@
 class Category {
-  String cid = "";
+  int id = 0;
   String name = "";
 
   Category();
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category()
-      ..cid = json['cid']
+      ..id = json['id']
       ..name = json['name'];
   }
 
   @override
   String toString() {
-    return 'Category{cid: $cid, name: $name}';
+    return 'Category{id: $id, name: $name}';
   }
 }
