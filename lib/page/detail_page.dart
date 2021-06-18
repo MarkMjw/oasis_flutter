@@ -12,16 +12,16 @@ import 'package:oasis_flutter/widget/scroll_behavior_ext.dart';
 import 'package:http/http.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoDetailPage extends StatefulWidget {
+class DetailPage extends StatefulWidget {
   final Status? status;
 
-  VideoDetailPage({Key? key, this.status}) : super(key: key);
+  DetailPage({Key? key, this.status}) : super(key: key);
 
   @override
-  _VideoDetailPageState createState() => _VideoDetailPageState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _VideoDetailPageState extends State<VideoDetailPage> {
+class _DetailPageState extends State<DetailPage> {
   VideoPlayerController? _controller;
   bool _isPlaying = false;
 
@@ -30,7 +30,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   var _hasMore = true;
   ScrollController _scrollController = ScrollController();
 
-  _VideoDetailPageState() {
+  _DetailPageState() {
     _scrollController.addListener(() {
       var maxScroll = _scrollController.position.maxScrollExtent;
       var pixels = _scrollController.position.pixels;
@@ -180,7 +180,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       alignment: Alignment.topLeft,
       child: Text(
-        "${formatNumberZh(widget.status!.commentCount)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
+        "${formatNumberZh(widget.status!.commentTotal)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
         style: TextStyle(
           fontSize: 12,
           color: Color(0xff4c4c4c),
@@ -385,8 +385,8 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   }
 
   void initPlayer() {
-    print("play url:${widget.status!.video.url}");
-    _controller = VideoPlayerController.network(widget.status!.video.url)
+    print("play url:${widget.status!.medias[0].url}");
+    _controller = VideoPlayerController.network(widget.status!.medias[0].url)
       ..addListener(() {
         final bool isPlaying = _controller!.value.isPlaying;
         if (isPlaying != _isPlaying) {
