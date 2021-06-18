@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config/color_config.dart';
-import 'package:flutter_app/page/home_page.dart';
-import 'package:flutter_app/page/mine_page.dart';
-import 'package:flutter_app/page/message_page.dart';
-import 'package:flutter_app/page/discover_page.dart';
+import 'package:oasis_flutter/config/color_config.dart';
+import 'package:oasis_flutter/page/home_page.dart';
+import 'package:oasis_flutter/page/mine_page.dart';
+import 'package:oasis_flutter/page/message_page.dart';
+import 'package:oasis_flutter/page/discover_page.dart';
 
 class MainPage extends StatefulWidget {
   @override

@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/config/api.dart';
-import 'package:flutter_app/config/color_config.dart';
-import 'package:flutter_app/model/comment.dart';
-import 'package:flutter_app/model/status.dart';
-import 'package:flutter_app/util/util.dart';
-import 'package:flutter_app/widget/scroll_behavior_ext.dart';
+import 'package:oasis_flutter/config/api.dart';
+import 'package:oasis_flutter/config/color_config.dart';
+import 'package:oasis_flutter/model/comment.dart';
+import 'package:oasis_flutter/model/status.dart';
+import 'package:oasis_flutter/util/util.dart';
+import 'package:oasis_flutter/widget/scroll_behavior_ext.dart';
 import 'package:http/http.dart';
 import 'package:video_player/video_player.dart';
 
@@ -157,7 +157,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
 
   Widget _buildTitle() {
     return Offstage(
-      offstage: widget.status?.title?.trim()?.isEmpty == true,
+      offstage: widget.status?.title.trim().isEmpty == true,
       child: Container(
         margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
         alignment: Alignment.topLeft,

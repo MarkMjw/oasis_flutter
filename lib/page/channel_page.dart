@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config/api.dart';
-import 'package:flutter_app/config/color_config.dart';
-import 'package:flutter_app/model/status.dart';
-import 'package:flutter_app/page/detail_page.dart';
-import 'package:flutter_app/util/util.dart';
+import 'package:oasis_flutter/config/api.dart';
+import 'package:oasis_flutter/config/color_config.dart';
+import 'package:oasis_flutter/model/status.dart';
+import 'package:oasis_flutter/page/detail_page.dart';
+import 'package:oasis_flutter/util/util.dart';
 import 'package:http/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';

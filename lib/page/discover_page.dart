@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/config/api.dart';
-import 'package:flutter_app/config/color_config.dart';
-import 'package:flutter_app/model/category.dart';
+import 'package:oasis_flutter/config/api.dart';
+import 'package:oasis_flutter/config/color_config.dart';
+import 'package:oasis_flutter/model/category.dart';
 import 'package:http/http.dart';
 
 import 'channel_page.dart';

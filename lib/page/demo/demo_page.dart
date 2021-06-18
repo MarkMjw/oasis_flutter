@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/page/demo/demo_layout_page.dart';
-import 'package:flutter_app/page/demo/demo_list_page.dart';
+import 'package:oasis_flutter/page/demo/demo_layout_page.dart';
+import 'package:oasis_flutter/page/demo/demo_list_page.dart';
 
 class DemoPage extends StatefulWidget {
   @override

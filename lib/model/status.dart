@@ -1,5 +1,5 @@
-import 'package:flutter_app/model/user.dart';
-import 'package:flutter_app/model/video.dart';
+import 'package:oasis_flutter/model/user.dart';
+import 'package:oasis_flutter/model/video.dart';
 
 class Status {
   int id = 0;

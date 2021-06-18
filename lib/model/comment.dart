@@ -1,4 +1,4 @@
-import 'package:flutter_app/model/user.dart';
+import 'package:oasis_flutter/model/user.dart';
 
 class Comment {
   int cid = 0;
