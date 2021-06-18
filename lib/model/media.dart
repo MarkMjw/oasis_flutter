@@ -11,6 +11,14 @@ class Media {
 
   Media();
 
+  double aspectRatio() {
+    if (width > 0 && height > 0) {
+      return width * 1.0 / height;
+    } else {
+      return 1.0;
+    }
+  }
+
   factory Media.fromJson(Map<String, dynamic> json) {
     return Media()
       ..url = json['url']

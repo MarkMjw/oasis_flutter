@@ -61,29 +61,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
           ),
           Offstage(
             offstage: _load != 2,
-            child: Center(
-              child: Container(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        child: SizedBox(
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                          width: 14,
-                          height: 14,
-                        ),
-                        alignment: Alignment.centerRight,
-                        margin: EdgeInsets.only(right: 10),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text("加载更多..."),
-                    )
-                  ],
-                ),
-                padding: EdgeInsets.all(15),
-              ),
-            ),
+            child: _buildLoadMore(),
           )
         ],
       ),
@@ -100,7 +78,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
         Status status = _items[index];
         return WaterfallItem(status);
       },
-      staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index == 0 ? 1.5 : 2),
+      staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
     );
@@ -289,27 +267,27 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   //   );
   // }
   //
-  // Widget _buildLoadMore() {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     mainAxisSize: MainAxisSize.min,
-  //     children: <Widget>[
-  //       Container(
-  //         width: 24,
-  //         height: 24,
-  //         margin: EdgeInsets.only(right: 10),
-  //         child: CircularProgressIndicator(strokeWidth: 2),
-  //       ),
-  //       Text(
-  //         "加载中...",
-  //         style: TextStyle(
-  //           color: ColorConfig.colorText1,
-  //           fontSize: 15,
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _buildLoadMore() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          width: 24,
+          height: 24,
+          margin: EdgeInsets.only(right: 10),
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
+        Text(
+          "加载中...",
+          style: TextStyle(
+            color: ColorConfig.colorText1,
+            fontSize: 15,
+          ),
+        ),
+      ],
+    );
+  }
 
   void _loadData(bool isRefresh) async {
     String url = "${Api.HOST}/timeline/discovery?channel_id=${widget.cid}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
@@ -323,7 +301,6 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
       _hasMore = cursor != "0";
 
       final statuses = body["data"]["statuses"];
-      print(statuses);
       var items = [];
       statuses.forEach((item) => items.add(Status.fromJson(item)));
 
