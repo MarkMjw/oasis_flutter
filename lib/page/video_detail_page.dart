@@ -75,7 +75,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
     return Stack(
       children: <Widget>[
         Container(
-          color: ColorConfig.colorBackground1,
+          color: ColorConfig.background1,
           child: _controller!.value.isInitialized
               ? AspectRatio(
                   aspectRatio: _controller!.value.aspectRatio,
@@ -129,7 +129,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
               } else {
                 return Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
-                  child: Divider(color: ColorConfig.colorDivider, height: 1),
+                  child: Divider(color: ColorConfig.dividerColor, height: 1),
                 );
               }
             } else {
@@ -148,9 +148,9 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
         _buildTitle(),
         _buildPlayInfo(),
         _buildShare(),
-        Container(margin: EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.colorBackground1),
+        Container(margin: EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.background1),
         _buildAuthor(),
-        Container(height: 5, color: ColorConfig.colorBackground1),
+        Container(height: 5, color: ColorConfig.background1),
       ],
     );
   }

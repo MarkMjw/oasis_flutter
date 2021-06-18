@@ -38,6 +38,8 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
           _buildItem(0),
           _buildItem(1),
@@ -61,29 +63,22 @@ class _MainPageState extends State<MainPage> {
   BottomNavigationBarItem _buildItem(int index) {
     return BottomNavigationBarItem(
         icon: tabImages[index][index == _tabIndex ? 1 : 0],
-        label: tabTitles[index],
-        // title: Text(
-        //   tabTitles[index],
-        //   style: TextStyle(
-        //     color: index == _tabIndex ? ColorConfig.colorPrimary : Color(0x80000000),
-        //   ),
-        // )
+        label: "",
     );
   }
 
   void _initTab() {
-    tabTitles = ['首页', '故事', '金币', '我的'];
     tabImages = [
-      [_getTabImage('assets/images/video.png'), _getTabImage('assets/images/video_selected.png')],
-      [_getTabImage('assets/images/story.png'), _getTabImage('assets/images/story_selected.png')],
-      [_getTabImage('assets/images/money.png'), _getTabImage('assets/images/money_selected.png')],
-      [_getTabImage('assets/images/mine.png'), _getTabImage('assets/images/mine_selected.png')],
+      [_getTabImage('assets/images/main_nav_home_normal.webp'), _getTabImage('assets/images/main_nav_home_hl.webp')],
+      [_getTabImage('assets/images/main_nav_discover_normal.webp'), _getTabImage('assets/images/main_nav_discover_hl.webp')],
+      [_getTabImage('assets/images/main_nav_message_normal.webp'), _getTabImage('assets/images/main_nav_message_hl.webp')],
+      [_getTabImage('assets/images/main_nav_mine_normal.webp'), _getTabImage('assets/images/main_nav_mine_hl.webp')],
     ];
     _pages = [HomePage(), StoryPage(), MoneyPage(), MinePage()];
     pageController = PageController(initialPage: _tabIndex, keepPage: true);
   }
 
   Image _getTabImage(path) {
-    return new Image.asset(path, width: 28, height: 28);
+    return new Image.asset(path, width: 24, height: 24);
   }
 }

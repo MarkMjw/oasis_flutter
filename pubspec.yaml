@@ -62,6 +62,15 @@ flutter:
     - assets/images/publish_work_sign.png
     - assets/images/share_qq.png
     - assets/images/share_wechat.png
+    - assets/images/main_nav_home_normal.webp
+    - assets/images/main_nav_home_hl.webp
+    - assets/images/main_nav_discover_normal.webp
+    - assets/images/main_nav_discover_hl.webp
+    - assets/images/main_nav_message_normal.webp
+    - assets/images/main_nav_message_hl.webp
+    - assets/images/main_nav_mine_normal.webp
+    - assets/images/main_nav_mine_hl.webp
+    - assets/images/main_nav_more_normal.webp
     - assets/images/video.png
     - assets/images/video_selected.png
     - assets/images/story.png
