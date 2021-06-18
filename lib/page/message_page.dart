@@ -10,10 +10,10 @@ class _MoneyPageState extends State<MoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("钱包"),
+          title: Text("消息"),
         ),
         body: Center(
-          child: Text("钱包Tab"),
+          child: Text("消息页"),
         ));
   }
 }

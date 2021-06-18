@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/page/home_page.dart';
 import 'package:flutter_app/page/mine_page.dart';
-import 'package:flutter_app/page/money_page.dart';
-import 'package:flutter_app/page/story_page.dart';
+import 'package:flutter_app/page/message_page.dart';
+import 'package:flutter_app/page/discover_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: ColorConfig.colorPrimary,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
@@ -74,7 +75,7 @@ class _MainPageState extends State<MainPage> {
       [_getTabImage('assets/images/main_nav_message_normal.webp'), _getTabImage('assets/images/main_nav_message_hl.webp')],
       [_getTabImage('assets/images/main_nav_mine_normal.webp'), _getTabImage('assets/images/main_nav_mine_hl.webp')],
     ];
-    _pages = [HomePage(), StoryPage(), MoneyPage(), MinePage()];
+    _pages = [HomePage(), DiscoverPage(), MoneyPage(), MinePage()];
     pageController = PageController(initialPage: _tabIndex, keepPage: true);
   }
 

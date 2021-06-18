@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/config/api.dart';
 import 'package:flutter_app/config/color_config.dart';
 import 'package:flutter_app/model/status.dart';
-import 'package:flutter_app/page/video_detail_page.dart';
+import 'package:flutter_app/page/detail_page.dart';
 import 'package:flutter_app/util/util.dart';
 import 'package:http/http.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class VideoPage extends StatefulWidget {
+class ChannelPage extends StatefulWidget {
   final int cid;
 
-  VideoPage({Key? key, this.cid = 0}) : super(key: key);
+  ChannelPage({Key? key, this.cid = 0}) : super(key: key);
 
   @override
-  _VideoPageState createState() => _VideoPageState();
+  _ChannelPageState createState() => _ChannelPageState();
 }
 
-class _VideoPageState extends State<VideoPage> with AutomaticKeepAliveClientMixin {
+class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClientMixin {
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
   ScrollController _scrollController = ScrollController();
 
-  _VideoPageState() {
+  _ChannelPageState() {
     _scrollController.addListener(() {
       var maxScroll = _scrollController.position.maxScrollExtent;
       var pixels = _scrollController.position.pixels;
