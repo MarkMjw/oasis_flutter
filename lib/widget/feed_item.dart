@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/status.dart';
 import 'package:oasis_flutter/util/util.dart';
+import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class FeedItem extends StatefulWidget {
   Status status;
@@ -18,6 +19,9 @@ class FeedItem extends StatefulWidget {
 
 class _FeedItemSate extends State<FeedItem> {
   Status status;
+
+  final _pageController = PageController();
+  final _currentPageNotifier = ValueNotifier<int>(0);
 
   _FeedItemSate(this.status);
 
@@ -95,13 +99,49 @@ class _FeedItemSate extends State<FeedItem> {
   }
 
   Container buildMediaWidget() {
+    var item = status.medias;
     return Container(
       margin: EdgeInsets.only(top: 5, bottom: 5),
-      decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder),
-      child: AspectRatio(
-        aspectRatio: status.medias[0].aspectRatio(),
-        child: ClipRRect(
-          child: CachedNetworkImage(imageUrl: status.fixCover(), fit: BoxFit.fitWidth),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AspectRatio(
+            aspectRatio: status.medias[0].aspectRatio(),
+            child: PageView.builder(
+              controller: _pageController,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder),
+                  child: ClipRect(
+                    child: CachedNetworkImage(imageUrl: item[index].url, fit: BoxFit.fitWidth),
+                  ),
+                );
+              },
+              itemCount: item.length,
+              onPageChanged: (int index) {
+                _currentPageNotifier.value = index;
+              },
+            ),
+          ),
+          buildCircleIndicator(item.length),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCircleIndicator(int size) {
+    return Container(
+      margin: EdgeInsets.only(top: 5),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CirclePageIndicator(
+          itemCount: size,
+          size: 4,
+          dotSpacing: 4,
+          selectedSize: 6,
+          currentPageNotifier: _currentPageNotifier,
         ),
       ),
     );
