@@ -28,19 +28,13 @@ class _WaterfallItemState extends State<WaterfallItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: AspectRatio(
-                    aspectRatio: widget.status.medias[0].aspectRatio(),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      child: CachedNetworkImage(imageUrl: widget.status.fixCover(), fit: BoxFit.fitWidth),
-                    ),
-                  ),
-                ),
-              ],
+            decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
+            child: AspectRatio(
+              aspectRatio: widget.status.medias[0].aspectRatioWaterfall(),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                child: CachedNetworkImage(imageUrl: widget.status.fixCover(), fit: BoxFit.fitWidth),
+              ),
             ),
           ),
           Offstage(

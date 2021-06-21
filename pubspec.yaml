@@ -97,6 +97,10 @@ flutter:
     - assets/images/icon_weibo_pressed.webp
     - assets/images/discover_btn_like.webp
     - assets/images/discover_btn_like_hl.webp
+    - assets/images/feed_like.webp
+    - assets/images/feed_liked.webp
+    - assets/images/feed_comment.webp
+    - assets/images/feed_share.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

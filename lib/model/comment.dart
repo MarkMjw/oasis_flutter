@@ -12,12 +12,12 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment()
-      ..sid = json['sid']
-      ..cid = json['cid']
-      ..text = json['text']
+      ..sid = json['sid'] ?? 0
+      ..cid = json['cid'] ?? 0
+      ..text = json['text'] ?? ""
       ..user = User.fromJson(json['user'])
       ..sourceUser = User.fromJson(json['source_user'])
-      ..createTime = json['create_time'];
+      ..createTime = json['create_time'] ?? 0;
   }
 
   @override

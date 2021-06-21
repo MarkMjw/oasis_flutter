@@ -61,6 +61,33 @@ class Status {
     }
   }
 
+  String commentText(int index) {
+    var len = comments.length;
+    if (index < len) {
+      return comments[index].text;
+    } else {
+      return "";
+    }
+  }
+
+  User commentUser(int index) {
+    var len = comments.length;
+    if (index < len) {
+      return comments[index].user;
+    } else {
+      return User();
+    }
+  }
+
+  User likeUser(int index) {
+    var len = likes.length;
+    if (index < len) {
+      return likes[index];
+    } else {
+      return User();
+    }
+  }
+
   factory Status.fromJson(Map<String, dynamic> json) {
     var status = Status()
       ..id = json['id'] ?? 0

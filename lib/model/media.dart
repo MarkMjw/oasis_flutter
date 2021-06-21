@@ -13,7 +13,29 @@ class Media {
 
   double aspectRatio() {
     if (width > 0 && height > 0) {
-      return width * 1.0 / height;
+      var ratio = width * 1.0 / height;
+      if (ratio > 1.78) {
+        return 1.78;
+      } else if (ratio < 0.75) {
+        return 0.75;
+      } else {
+        return ratio;
+      }
+    } else {
+      return 1.0;
+    }
+  }
+
+  double aspectRatioWaterfall() {
+    if (width > 0 && height > 0) {
+      var ratio = width * 1.0 / height;
+      if (ratio > 1.33) {
+        return 1.33;
+      } else if (ratio < 0.75) {
+        return 0.75;
+      } else {
+        return ratio;
+      }
     } else {
       return 1.0;
     }
