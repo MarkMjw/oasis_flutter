@@ -20,7 +20,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
-  var _load = 0;
+  var _loading = false;
   ScrollController _scrollController = ScrollController();
 
   _ChannelPageState() {
@@ -29,6 +29,9 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
       var pixels = _scrollController.position.pixels;
       if (maxScroll == pixels && _hasMore) {
         // scroll to bottom, get next page data
+        setState(() {
+          _loading = true;
+        });
         _loadData(false);
       }
     });
@@ -51,7 +54,8 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
         children: <Widget>[
           Expanded(
             child: RefreshIndicator(
-              color: ColorConfig.colorPrimary,
+              color: ColorConfig.commonColorHighlight,
+              backgroundColor: ColorConfig.background1,
               child: buildWaterfall(),
               onRefresh: () async {
                 cursor = "-1";
@@ -60,7 +64,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
             ),
           ),
           Offstage(
-            offstage: _load != 2,
+            offstage: !_loading,
             child: _buildLoadMore(),
           )
         ],
@@ -207,7 +211,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   //             fit: BoxFit.fill,
   //             width: 36,
   //             height: 36,
-  //             // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+  //             // placeholder: Image.asset("assets/images/default_head.webp", width: 36, height: 36),
   //           ),
   //         ),
   //         Expanded(
@@ -275,13 +279,13 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
         Container(
           width: 24,
           height: 24,
-          margin: EdgeInsets.only(right: 10),
-          child: CircularProgressIndicator(strokeWidth: 2),
+          margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+          child: CircularProgressIndicator(color: ColorConfig.commonColorHighlight, strokeWidth: 2),
         ),
         Text(
           "加载中...",
           style: TextStyle(
-            color: ColorConfig.colorText1,
+            color: ColorConfig.commonColor,
             fontSize: 15,
           ),
         ),
@@ -305,6 +309,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
       statuses.forEach((item) => items.add(Status.fromJson(item)));
 
       setState(() {
+        _loading = false;
         if (isRefresh) {
           _items = items;
         } else {

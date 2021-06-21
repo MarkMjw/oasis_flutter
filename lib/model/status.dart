@@ -35,6 +35,32 @@ class Status {
 
   Status();
 
+  String fixText() {
+    if (title.isNotEmpty) {
+      return title;
+    } else if (text.isNotEmpty) {
+      return text;
+    } else {
+      return "";
+    }
+  }
+
+  String firstTopic() {
+    if (topics.isNotEmpty) {
+      return topics[0].name;
+    } else {
+      return "";
+    }
+  }
+
+  String fixCover() {
+    if (dynamicCover.url.isNotEmpty) {
+      return dynamicCover.url;
+    } else {
+      return cover;
+    }
+  }
+
   factory Status.fromJson(Map<String, dynamic> json) {
     var status = Status()
       ..id = json['id'] ?? 0

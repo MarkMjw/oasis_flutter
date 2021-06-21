@@ -84,7 +84,7 @@ flutter:
     - assets/images/pause.png
     - assets/images/shadow_up.png
     - assets/images/shadow_down.png
-    - assets/images/default_head.png
+    - assets/images/default_head.webp
     - assets/images/comment.png
     - assets/images/zan.png
     - assets/images/icon_go_weibo.webp
@@ -95,6 +95,8 @@ flutter:
     - assets/images/icon_wechat_pressed.webp
     - assets/images/icon_weibo.webp
     - assets/images/icon_weibo_pressed.webp
+    - assets/images/discover_btn_like.webp
+    - assets/images/discover_btn_like_hl.webp
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
