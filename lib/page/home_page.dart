@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void _loadData(bool isRefresh) async {
     String url =
-        "${Api.HOST}/timeline/following_and_card?show_f10=1&show_f12=false&is_water_task=0&scene=0&has_contacts=false&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
+        "${Api.HOST}/timeline/following_and_card?show_f10=1&show_f12=false&is_water_task=0&scene=1&has_contacts=false&cursor=$cursor&count=10&${Api.COMMON_PARAM}";
     print(url);
     Response response = await get(Uri.parse(url), headers: Api.COMMON_HEADER);
 

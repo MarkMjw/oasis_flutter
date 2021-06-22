@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/status.dart';
 import 'package:oasis_flutter/util/util.dart';
+import 'package:oasis_flutter/widget/formatted_text.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class FeedItem extends StatefulWidget {
@@ -328,7 +329,7 @@ class _FeedItemSate extends State<FeedItem> {
             offstage: status.title.isEmpty,
             child: Container(
               margin: EdgeInsets.only(top: 5),
-              child: Text(
+              child: FormattedText(
                 status.title,
                 textAlign: TextAlign.left,
                 maxLines: 2,
@@ -341,7 +342,7 @@ class _FeedItemSate extends State<FeedItem> {
             offstage: status.text.isEmpty,
             child: Container(
               margin: EdgeInsets.only(top: 5),
-              child: Text(
+              child: FormattedText(
                 status.text,
                 textAlign: TextAlign.left,
                 maxLines: 5,
@@ -429,16 +430,6 @@ class _FeedItemSate extends State<FeedItem> {
           ),
         ],
       ),
-    );
-  }
-
-  Container _createIcon(String icon, String iconChecked, bool isChecked) {
-    var url = icon;
-    if (isChecked) {
-      url = iconChecked;
-    }
-    return Container(
-      child: Image.asset(url, width: 22, height: 22),
     );
   }
 }
