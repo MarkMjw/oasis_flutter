@@ -29,7 +29,7 @@ class _FeedItemSate extends State<FeedItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -136,9 +136,7 @@ class _FeedItemSate extends State<FeedItem> {
               ),
               Offstage(
                 offstage: status.type != Status.TYPE_VIDEO,
-                child: Positioned(
-                  child: Image.asset("assets/images/play.png", width: 45, height: 45),
-                ),
+                child: Image.asset("assets/images/play.png", width: 45, height: 45),
               ),
             ],
           ),

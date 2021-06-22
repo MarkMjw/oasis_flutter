@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
@@ -28,6 +28,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       }
     });
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -71,29 +74,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               cursor = "-1";
               _loadData(true);
             }));
-  }
-
-  ListView buildListView() {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _items.length * 2,
-      itemBuilder: (BuildContext context, int position) {
-        if (position.isOdd) {
-          if (position == _items.length * 2 - 1) {
-            if (_hasMore) {
-              return _buildLoadMore();
-            } else {
-              return Container();
-            }
-          } else {
-            return Divider(color: Colors.transparent, height: 5);
-          }
-        }
-
-        final index = position ~/ 2;
-        return _buildRow(index);
-      },
-    );
   }
 
   Widget _buildRow(int position) {
