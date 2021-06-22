@@ -19,6 +19,7 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
 
   @override
   void initState() {
+    _controller = TabController(length: _cates.length, vsync: this);
     _fetchTabs();
     super.initState();
   }

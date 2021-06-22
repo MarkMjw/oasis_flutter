@@ -47,7 +47,7 @@ class _FeedItemSate extends State<FeedItem> {
       width: double.infinity,
       height: 45,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -60,46 +60,51 @@ class _FeedItemSate extends State<FeedItem> {
               placeholder: (context, url) => Image.asset("assets/images/default_head.webp", width: 36, height: 36),
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  status.user.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: ColorConfig.commonColor,
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    status.user.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: ColorConfig.commonColor,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10, top: 2),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  formatTime(status.createTime),
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: ColorConfig.commonColorSecond,
+                Container(
+                  margin: EdgeInsets.only(left: 10, top: 2),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    formatTime(status.createTime),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: ColorConfig.commonColorSecond,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          Container(
+            child: Image.asset("assets/images/feed_more.webp", width: 4, height: 20),
           ),
         ],
       ),
     );
   }
 
-  Container buildMediaWidget() {
-    var item = status.medias;
+  Widget buildMediaWidget() {
+    var count = status.medias.length;
     return Container(
       margin: EdgeInsets.only(top: 5, bottom: 5),
       child: Column(
@@ -107,25 +112,36 @@ class _FeedItemSate extends State<FeedItem> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AspectRatio(
-            aspectRatio: status.medias[0].aspectRatio(),
-            child: PageView.builder(
-              controller: _pageController,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder),
-                  child: ClipRect(
-                    child: CachedNetworkImage(imageUrl: item[index].url, fit: BoxFit.fitWidth),
-                  ),
-                );
-              },
-              itemCount: item.length,
-              onPageChanged: (int index) {
-                _currentPageNotifier.value = index;
-              },
-            ),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              AspectRatio(
+                aspectRatio: status.medias[0].aspectRatio(),
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder),
+                      child: ClipRect(
+                        child: CachedNetworkImage(imageUrl: status.mediaCover(index), fit: BoxFit.fitWidth),
+                      ),
+                    );
+                  },
+                  itemCount: count,
+                  onPageChanged: (int index) {
+                    _currentPageNotifier.value = index;
+                  },
+                ),
+              ),
+              Offstage(
+                offstage: status.type != Status.TYPE_VIDEO,
+                child: Positioned(
+                  child: Image.asset("assets/images/play.png", width: 45, height: 45),
+                ),
+              ),
+            ],
           ),
-          buildCircleIndicator(item.length),
+          buildCircleIndicator(count),
         ],
       ),
     );
@@ -363,14 +379,16 @@ class _FeedItemSate extends State<FeedItem> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 5),
-                    child: Text(
-                      status.commentText(0),
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Text(
+                        status.commentText(0),
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13),
+                      ),
                     ),
                   ),
                 ],
@@ -393,14 +411,16 @@ class _FeedItemSate extends State<FeedItem> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 5),
-                    child: Text(
-                      status.commentText(1),
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5),
+                      child: Text(
+                        status.commentText(1),
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: ColorConfig.commonColorSecond, fontSize: 13),
+                      ),
                     ),
                   ),
                 ],

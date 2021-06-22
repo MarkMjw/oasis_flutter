@@ -61,6 +61,16 @@ class Status {
     }
   }
 
+  String mediaCover(int index) {
+    if (type == TYPE_VIDEO) {
+      return fixCover();
+    } else if (index < medias.length) {
+      return medias[index].url;
+    } else {
+      return "";
+    }
+  }
+
   String commentText(int index) {
     var len = comments.length;
     if (index < len) {
