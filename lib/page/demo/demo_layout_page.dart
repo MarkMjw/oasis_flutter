@@ -1,14 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 
 class DemoLayoutPage extends StatelessWidget {
+  const DemoLayoutPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       /// Title
       appBar: AppBar(
-        title: Text("Layout demo"),
+        title: const Text("Layout demo"),
 //        leading: IconButton(
 //          icon: Image.asset("assets/images/icon_close.png"),
 //          onPressed: () {
@@ -41,7 +42,7 @@ class _LayoutPageState extends StatelessWidget {
                     width: 52.0,
                     height: 52.0,
                     margin: const EdgeInsets.only(left: 16.0),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundImage: AssetImage("assets/images/avatar.png"),
                     ),
                   ),
@@ -51,7 +52,7 @@ class _LayoutPageState extends StatelessWidget {
                     child: Stack(
                       children: <Widget>[
                         Image.asset("assets/images/publish_chat_box.png"),
-                        Positioned(
+                        const Positioned(
                           left: 25.0,
                           top: 14.0,
                           child: Text(
@@ -79,7 +80,7 @@ class _LayoutPageState extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       "Unit 1 Lesson 3 About animal",
                       style: TextStyle(fontSize: 20.0, fontFamily: "Round", color: Colors.white),
                     ),
@@ -89,7 +90,7 @@ class _LayoutPageState extends StatelessWidget {
                     ),
                     Wrap(
                       alignment: WrapAlignment.start,
-                      children: <Widget>[
+                      children: const <Widget>[
                         WorkTotalItem(title: "课文跟读 12"),
                         WorkTotalItem(title: "课文跟读 13"),
                         WorkTotalItem(title: "课文跟读 14"),
@@ -101,7 +102,7 @@ class _LayoutPageState extends StatelessWidget {
                       child: Stack(
                         children: <Widget>[
                           Image.asset("assets/images/publish_work_sign.png"),
-                          Positioned(
+                          const Positioned(
                             left: 4.0,
                             top: 4.0,
                             child: Text(
@@ -114,9 +115,9 @@ class _LayoutPageState extends StatelessWidget {
                     ),
                     Container(
                       alignment: Alignment.topRight,
-                      child: Text(
+                      child: const Text(
                         "明天12：00截止",
-                        style: TextStyle(fontSize: 12.0, color: const Color(0xffffc1c1)),
+                        style: TextStyle(fontSize: 12.0, color: Color(0xffffc1c1)),
                       ),
                     )
                   ],
@@ -124,10 +125,10 @@ class _LayoutPageState extends StatelessWidget {
               ),
             ),
           ),
-          LineTips(
+          const LineTips(
             title: Text(
               "给家长发个通知吧",
-              style: TextStyle(fontSize: 14.0, color: const Color(0xff757085)),
+              style: TextStyle(fontSize: 14.0, color: Color(0xff757085)),
             ),
           ),
           Container(
@@ -141,15 +142,19 @@ class _LayoutPageState extends StatelessWidget {
                   iconSize: 60.0,
                   icon: Image.asset("assets/images/share_wechat.png"),
                   onPressed: () {
-                    print("share to wechat.");
+                    if (kDebugMode) {
+                      print("share to wechat.");
+                    }
                   },
                 ),
                 IconButton(
-                  padding: EdgeInsets.only(left: 32.0),
+                  padding: const EdgeInsets.only(left: 32.0),
                   iconSize: 60.0,
                   icon: Image.asset("assets/images/share_qq.png"),
                   onPressed: () {
-                    print("share to qq.");
+                    if (kDebugMode) {
+                      print("share to qq.");
+                    }
                   },
                 )
               ],
@@ -166,22 +171,20 @@ class RoundInnerSquareBox extends StatelessWidget {
 
   final Widget? child;
 
-  RoundInnerSquareBox({
+   const RoundInnerSquareBox({Key? key,
     @required this.child,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.all(const Radius.circular(16.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       child: Container(
         color: const Color(0xfff0d5a9),
         padding: const EdgeInsets.all(gap),
         child: Container(
-          child: Container(
-            color: const Color(0xff3c594e),
-            child: child,
-          ),
+          color: const Color(0xff3c594e),
+          child: child,
         ),
       ),
     );
@@ -189,12 +192,12 @@ class RoundInnerSquareBox extends StatelessWidget {
 }
 
 class LineTips extends StatelessWidget {
-  static const defaultMargin = const EdgeInsets.only(left: 15.0, right: 15.0);
+  static const defaultMargin = EdgeInsets.only(left: 15.0, right: 15.0);
 
-  LineTips({
+  const LineTips({Key? key,
     @required this.title,
     this.margin = defaultMargin,
-  });
+  }) : super(key: key);
 
   final Widget? title;
   final EdgeInsetsGeometry margin;
@@ -234,7 +237,7 @@ class LineTips extends StatelessWidget {
 class WorkTotalItem extends StatelessWidget {
   final String? title;
 
-  WorkTotalItem({@required this.title});
+   const WorkTotalItem({Key? key, @required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +245,7 @@ class WorkTotalItem extends StatelessWidget {
       padding: const EdgeInsets.all(6.0),
       child: Text(
         "$title",
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14.0,
           color: Colors.white,
         ),
