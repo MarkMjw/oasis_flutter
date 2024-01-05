@@ -3,19 +3,20 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:oasis_flutter/config/api.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/comment.dart';
 import 'package:oasis_flutter/model/status.dart';
 import 'package:oasis_flutter/util/util.dart';
+import 'package:oasis_flutter/widget/feed_item.dart';
 import 'package:oasis_flutter/widget/scroll_behavior_ext.dart';
-import 'package:http/http.dart';
 import 'package:video_player/video_player.dart';
 
 class DetailPage extends StatefulWidget {
   final Status? status;
 
-  const DetailPage({super.key, this.status});
+  DetailPage({super.key, this.status});
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -48,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    initPlayer();
+    // initPlayer();
     _loadData();
   }
 
@@ -60,53 +61,57 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+        .copyWith(statusBarColor: Colors.transparent));
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("详情"),
+      ),
       body: Column(
         children: <Widget>[
-          _buildPlayer(),
+          // _buildPlayer(),
           _buildListView(),
         ],
       ),
     );
   }
 
-  Stack _buildPlayer() {
-    return Stack(
-      children: <Widget>[
-        Container(
-          color: ColorConfig.background1,
-          child: _controller!.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller!.value.aspectRatio,
-                  child: VideoPlayer(_controller!),
-                )
-              : Container(),
-        ),
-        SizedBox(
-          height: 180,
-          width: double.infinity,
-          child: Center(
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              icon: Image.asset(_controller!.value.isPlaying ? "assets/images/pause.png" : "assets/images/play.png"),
-              onPressed: _controller!.value.isPlaying ? _controller!.pause : _controller!.play,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 48,
-          height: 48,
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-      ],
-    );
-  }
+  // Stack _buildPlayer() {
+  //   return Stack(
+  //     children: <Widget>[
+  //       Container(
+  //         color: ColorConfig.background1,
+  //         child: _controller!.value.isInitialized
+  //             ? AspectRatio(
+  //                 aspectRatio: _controller!.value.aspectRatio,
+  //                 child: VideoPlayer(_controller!),
+  //               )
+  //             : Container(),
+  //       ),
+  //       SizedBox(
+  //         height: 180,
+  //         width: double.infinity,
+  //         child: Center(
+  //           child: IconButton(
+  //             padding: EdgeInsets.zero,
+  //             icon: Image.asset(_controller!.value.isPlaying ? "assets/images/pause.png" : "assets/images/play.png"),
+  //             onPressed: _controller!.value.isPlaying ? _controller!.pause : _controller!.play,
+  //           ),
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         width: 48,
+  //         height: 48,
+  //         child: IconButton(
+  //           icon: const Icon(Icons.arrow_back, color: Colors.white),
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Expanded _buildListView() {
     return Expanded(
@@ -118,7 +123,7 @@ class _DetailPageState extends State<DetailPage> {
           padding: const EdgeInsets.all(0),
           itemBuilder: (BuildContext context, int position) {
             if (position == 0) {
-              return _buildHeader();
+              return FeedItem(widget.status!);
             } else if (position.isOdd) {
               if (position == _itemCount() - 1) {
                 if (_hasMore) {
@@ -129,7 +134,6 @@ class _DetailPageState extends State<DetailPage> {
               } else {
                 return Container(
                   margin: const EdgeInsets.only(left: 10, right: 10),
-                  child: Divider(color: ColorConfig.dividerColor, height: 1),
                 );
               }
             } else {
@@ -142,160 +146,160 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Widget _buildHeader() {
-    return Column(
-      children: <Widget>[
-        _buildTitle(),
-        _buildPlayInfo(),
-        _buildShare(),
-        Container(margin: const EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.background1),
-        _buildAuthor(),
-        Container(height: 5, color: ColorConfig.background1),
-      ],
-    );
-  }
-
-  Widget _buildTitle() {
-    return Offstage(
-      offstage: widget.status?.title.trim().isEmpty == true,
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        alignment: Alignment.topLeft,
-        child: Text(
-          widget.status!.title,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Container _buildPlayInfo() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-      alignment: Alignment.topLeft,
-      child: Text(
-        "${formatNumberZh(widget.status!.commentTotal)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
-        style: const TextStyle(
-          fontSize: 12,
-          color: Color(0xff4c4c4c),
-        ),
-      ),
-    );
-  }
-
-  Container _buildShare() {
-    return Container(
-      height: 48,
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Image.asset(
-              "assets/images/icon_weibo.webp",
-              width: 75,
-              height: 25,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Image.asset(
-              "assets/images/icon_wechat.webp",
-              width: 75,
-              height: 25,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Image.asset(
-              "assets/images/icon_pyq.webp",
-              width: 75,
-              height: 25,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: Image.asset(
-              "assets/images/icon_go_weibo.webp",
-              width: 75,
-              height: 25,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container _buildAuthor() {
-    return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      height: 48,
-      child: Row(
-        children: <Widget>[
-//          Container(
-//            width: 36,
-//            height: 36,
-//            child: CircleAvatar(
-//              backgroundImage: FadeInImage.assetNetwork(
-//                placeholder: "assets/images/default_head.png",
-//                image: widget.status.user.image,
-//                fit: BoxFit.cover,
-//              ).image,
-//              radius: 100,
-//            ),
-//          ),
-          ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: widget.status!.user.image,
-              fit: BoxFit.fill,
-              width: 36,
-              height: 36,
-              // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    widget.status!.user.name,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, top: 1),
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    widget.status!.user.description,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: ColorConfig.colorText1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildHeader() {
+  //   return Column(
+  //     children: <Widget>[
+  //       _buildTitle(),
+  //       _buildPlayInfo(),
+  //       _buildShare(),
+  //       Container(margin: const EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.background1),
+  //       _buildAuthor(),
+  //       Container(height: 5, color: ColorConfig.background1),
+  //     ],
+  //   );
+  // }
+//
+//   Widget _buildTitle() {
+//     return Offstage(
+//       offstage: widget.status?.title.trim().isEmpty == true,
+//       child: Container(
+//         margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+//         alignment: Alignment.topLeft,
+//         child: Text(
+//           widget.status!.title,
+//           maxLines: 3,
+//           overflow: TextOverflow.ellipsis,
+//           style: const TextStyle(
+//             fontSize: 18.0,
+//             fontWeight: FontWeight.bold,
+//             color: Colors.black,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Container _buildPlayInfo() {
+//     return Container(
+//       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+//       alignment: Alignment.topLeft,
+//       child: Text(
+//         "${formatNumberZh(widget.status!.commentTotal)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
+//         style: const TextStyle(
+//           fontSize: 12,
+//           color: Color(0xff4c4c4c),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Container _buildShare() {
+//     return Container(
+//       height: 48,
+//       margin: const EdgeInsets.only(left: 10, right: 10),
+//       child: Row(
+//         children: <Widget>[
+//           Padding(
+//             padding: const EdgeInsets.only(right: 8),
+//             child: Image.asset(
+//               "assets/images/icon_weibo.webp",
+//               width: 75,
+//               height: 25,
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(right: 8),
+//             child: Image.asset(
+//               "assets/images/icon_wechat.webp",
+//               width: 75,
+//               height: 25,
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(right: 8),
+//             child: Image.asset(
+//               "assets/images/icon_pyq.webp",
+//               width: 75,
+//               height: 25,
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.only(right: 8),
+//             child: Image.asset(
+//               "assets/images/icon_go_weibo.webp",
+//               width: 75,
+//               height: 25,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Container _buildAuthor() {
+//     return Container(
+//       margin: const EdgeInsets.only(left: 10, right: 10),
+//       height: 48,
+//       child: Row(
+//         children: <Widget>[
+// //          Container(
+// //            width: 36,
+// //            height: 36,
+// //            child: CircleAvatar(
+// //              backgroundImage: FadeInImage.assetNetwork(
+// //                placeholder: "assets/images/default_head.png",
+// //                image: widget.status.user.image,
+// //                fit: BoxFit.cover,
+// //              ).image,
+// //              radius: 100,
+// //            ),
+// //          ),
+//           ClipOval(
+//             child: CachedNetworkImage(
+//               imageUrl: widget.status!.user.image,
+//               fit: BoxFit.fill,
+//               width: 36,
+//               height: 36,
+//               // placeholder: Image.asset("assets/images/default_head.png", width: 36, height: 36),
+//             ),
+//           ),
+//           Expanded(
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: <Widget>[
+//                 Container(
+//                   margin: const EdgeInsets.only(left: 10),
+//                   alignment: Alignment.topLeft,
+//                   child: Text(
+//                     widget.status!.user.name,
+//                     style: const TextStyle(
+//                       fontSize: 13,
+//                       color: Colors.black,
+//                     ),
+//                   ),
+//                 ),
+//                 Container(
+//                   margin: const EdgeInsets.only(left: 10, top: 1),
+//                   alignment: Alignment.topLeft,
+//                   child: Text(
+//                     widget.status!.user.description,
+//                     maxLines: 1,
+//                     overflow: TextOverflow.ellipsis,
+//                     style: TextStyle(
+//                       fontSize: 11,
+//                       color: ColorConfig.colorText1,
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
   Widget _buildCommentRow(int position) {
     Comment comment = _items[position];
@@ -329,16 +333,16 @@ class _DetailPageState extends State<DetailPage> {
                         comment.user.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
+                        style: TextStyle(
+                          color: ColorConfig.commonColorSecond,
+                          fontSize: 14,
                         ),
                       ),
                     ),
                     Text(
                       formatDate(comment.createTime, "yyyy-hh-mm"),
-                      style: const TextStyle(
-                        color: Color(0xff9d9d9d),
+                      style: TextStyle(
+                        color: ColorConfig.commonColorSecond,
                         fontSize: 11,
                       ),
                     ),
@@ -349,7 +353,7 @@ class _DetailPageState extends State<DetailPage> {
                   child: Text(
                     comment.text,
                     style: TextStyle(
-                      color: ColorConfig.colorText1,
+                      color: ColorConfig.commonColor,
                       fontSize: 12,
                     ),
                   ),
@@ -384,29 +388,39 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  void initPlayer() {
-    print("play url:${widget.status!.medias[0].url}");
-    _controller = VideoPlayerController.network(widget.status!.medias[0].url)
-      ..addListener(() {
-        final bool isPlaying = _controller!.value.isPlaying;
-        if (isPlaying != _isPlaying) {
-          setState(() {
-            _isPlaying = isPlaying;
-          });
-        }
-      })
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
-  }
+  // void initPlayer() {
+  //   print("play url:${widget.status!.medias[0].url}");
+  //   _controller = VideoPlayerController.network(widget.status!.medias[0].url)
+  //     ..addListener(() {
+  //       final bool isPlaying = _controller!.value.isPlaying;
+  //       if (isPlaying != _isPlaying) {
+  //         setState(() {
+  //           _isPlaying = isPlaying;
+  //         });
+  //       }
+  //     })
+  //     ..initialize().then((_) {
+  //       // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+  //       setState(() {});
+  //     });
+  // }
 
   void _loadData() async {
-    String url = "${Api.HOST}/comment/list?lid=${widget.status!.id}&type=${widget.status!.type}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
+    widget.status?.id = 4439231558562822;
+    String url =
+        "${Api.HOST}/comment/list?sid=${widget.status!.id}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
     Response response = await get(Uri.parse(url));
 
-    final body = json.decode(response.body);
+    String res = response.body;
+    int index = res.indexOf("代码折叠", 0);
+    String fixBody;
+    if (index > 0) {
+      fixBody = res.substring(0, index);
+    } else {
+      fixBody = res;
+    }
+    final body = json.decode(fixBody);
     final int code = body["code"];
     if (code == 0) {
       cursor = body["data"]["next_cursor"];

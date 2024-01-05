@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/status.dart';
+import 'package:oasis_flutter/page/detail_page.dart';
 import 'package:oasis_flutter/util/util.dart';
 
 class WaterfallItem extends StatefulWidget {
@@ -21,18 +22,28 @@ class _WaterfallItemState extends State<WaterfallItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailPage(status: widget.status)),
+        );
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: const BorderRadius.all(Radius.circular(5))),
+            decoration: BoxDecoration(
+                color: ColorConfig.colorPlaceHolder,
+                borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: AspectRatio(
               aspectRatio: widget.status.medias[0].aspectRatioWaterfall(),
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                child: CachedNetworkImage(imageUrl: widget.status.fixCover(), fit: BoxFit.fitWidth),
+                child: CachedNetworkImage(
+                    imageUrl: widget.status.fixCover(), fit: BoxFit.fitWidth),
               ),
             ),
           ),
@@ -45,7 +56,10 @@ class _WaterfallItemState extends State<WaterfallItem> {
                 textAlign: TextAlign.left,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: ColorConfig.commonColorHighlight, fontSize: 13, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: ColorConfig.commonColorHighlight,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -76,7 +90,10 @@ class _WaterfallItemState extends State<WaterfallItem> {
                     fit: BoxFit.fill,
                     width: 24,
                     height: 24,
-                    placeholder: (context, url) => Image.asset("assets/images/default_head.webp", width: 24, height: 24),
+                    placeholder: (context, url) => Image.asset(
+                        "assets/images/default_head.webp",
+                        width: 24,
+                        height: 24),
                   ),
                 ),
                 Expanded(
@@ -97,10 +114,15 @@ class _WaterfallItemState extends State<WaterfallItem> {
                   ),
                 ),
                 InkWell(
-                  child: _createIcon("assets/images/discover_btn_like.webp", "assets/images/discover_btn_like.webp",
-                      formatNumberZh(widget.status.likeTotal), widget.status.isLike),
+                  child: _createIcon(
+                      "assets/images/discover_btn_like.webp",
+                      "assets/images/discover_btn_like.webp",
+                      formatNumberZh(widget.status.likeTotal),
+                      widget.status.isLike),
                   onTap: () {
-                    Fluttertoast.showToast(msg: "点赞👍 +1", backgroundColor: ColorConfig.colorToastBackground);
+                    Fluttertoast.showToast(
+                        msg: "点赞👍 +1",
+                        backgroundColor: ColorConfig.colorToastBackground);
                   },
                 )
               ],
@@ -111,7 +133,8 @@ class _WaterfallItemState extends State<WaterfallItem> {
     );
   }
 
-  Container _createIcon(String icon, String iconChecked, String text, bool isChecked) {
+  Container _createIcon(
+      String icon, String iconChecked, String text, bool isChecked) {
     var url = icon;
     if (isChecked) {
       url = iconChecked;
