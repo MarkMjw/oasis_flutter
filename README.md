@@ -1,16 +1,20 @@
 # oasis
 
-A flutter client of oasis.
+A flutter client of oasis (demo).
 
-## Getting Started
+## ScreenShots
 
-This project is a starting point for a Flutter application.
+Timeline page:
+<div align="left">
+<img src=./screenshots/timeline.png width=60%>
+</div>
 
-A few resources to get you started if this is your first Flutter project:
+Recommend page:
+<div align="left">
+<img src=./screenshots/recommend.png width=60%>
+</div>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Status detail page:
+<div align="left">
+<img src=./screenshots/detail.png width=60%>
+</div>

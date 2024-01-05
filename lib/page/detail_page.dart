@@ -406,7 +406,7 @@ class _DetailPageState extends State<DetailPage> {
   // }
 
   void _loadData() async {
-    widget.status?.id = 4439231558562822;
+    // widget.status?.id = 4438907896614858;
     String url =
         "${Api.HOST}/comment/list?sid=${widget.status!.id}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
