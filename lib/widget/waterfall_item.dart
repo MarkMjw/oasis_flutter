@@ -8,7 +8,7 @@ import 'package:oasis_flutter/util/util.dart';
 class WaterfallItem extends StatefulWidget {
   Status status;
 
-  WaterfallItem(this.status);
+  WaterfallItem(this.status, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -27,11 +27,11 @@ class _WaterfallItemState extends State<WaterfallItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: BorderRadius.all(Radius.circular(5))),
+            decoration: BoxDecoration(color: ColorConfig.colorPlaceHolder, borderRadius: const BorderRadius.all(Radius.circular(5))),
             child: AspectRatio(
               aspectRatio: widget.status.medias[0].aspectRatioWaterfall(),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
                 child: CachedNetworkImage(imageUrl: widget.status.fixCover(), fit: BoxFit.fitWidth),
               ),
             ),
@@ -39,7 +39,7 @@ class _WaterfallItemState extends State<WaterfallItem> {
           Offstage(
             offstage: widget.status.topics.isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Text(
                 "#${widget.status.firstTopic()}",
                 textAlign: TextAlign.left,
@@ -52,7 +52,7 @@ class _WaterfallItemState extends State<WaterfallItem> {
           Offstage(
             offstage: widget.status.fixText().isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Text(
                 widget.status.fixText(),
                 textAlign: TextAlign.left,
@@ -63,7 +63,7 @@ class _WaterfallItemState extends State<WaterfallItem> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5, bottom: 5),
+            margin: const EdgeInsets.only(top: 5, bottom: 5),
             height: 24,
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -82,7 +82,7 @@ class _WaterfallItemState extends State<WaterfallItem> {
                 Expanded(
                   child: Container(
                     height: double.infinity,
-                    margin: EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 10),
                     alignment: Alignment.centerLeft,
                     child: Text(
                       widget.status.user.name,
@@ -118,12 +118,12 @@ class _WaterfallItemState extends State<WaterfallItem> {
     }
     return Container(
       height: double.infinity,
-      padding: EdgeInsets.only(left: 10, right: 3),
+      padding: const EdgeInsets.only(left: 10, right: 3),
       child: Row(
         children: <Widget>[
           Image.asset(url, width: 16, height: 16),
           Padding(
-            padding: EdgeInsets.only(left: 3),
+            padding: const EdgeInsets.only(left: 3),
             child: Text(
               text,
               style: TextStyle(

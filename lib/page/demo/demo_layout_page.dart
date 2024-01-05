@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DemoLayoutPage extends StatelessWidget {
-  const DemoLayoutPage({Key? key}) : super(key: key);
+  const DemoLayoutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +88,9 @@ class _LayoutPageState extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 5.0, bottom: 13.0),
                       child: Image.asset("assets/images/publish_work_line.png"),
                     ),
-                    Wrap(
+                    const Wrap(
                       alignment: WrapAlignment.start,
-                      children: const <Widget>[
+                      children: <Widget>[
                         WorkTotalItem(title: "课文跟读 12"),
                         WorkTotalItem(title: "课文跟读 13"),
                         WorkTotalItem(title: "课文跟读 14"),
@@ -171,9 +171,9 @@ class RoundInnerSquareBox extends StatelessWidget {
 
   final Widget? child;
 
-   const RoundInnerSquareBox({Key? key,
+   const RoundInnerSquareBox({super.key,
     @required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -194,10 +194,10 @@ class RoundInnerSquareBox extends StatelessWidget {
 class LineTips extends StatelessWidget {
   static const defaultMargin = EdgeInsets.only(left: 15.0, right: 15.0);
 
-  const LineTips({Key? key,
+  const LineTips({super.key,
     @required this.title,
     this.margin = defaultMargin,
-  }) : super(key: key);
+  });
 
   final Widget? title;
   final EdgeInsetsGeometry margin;
@@ -237,7 +237,7 @@ class LineTips extends StatelessWidget {
 class WorkTotalItem extends StatelessWidget {
   final String? title;
 
-   const WorkTotalItem({Key? key, @required this.title}) : super(key: key);
+   const WorkTotalItem({super.key, @required this.title});
 
   @override
   Widget build(BuildContext context) {

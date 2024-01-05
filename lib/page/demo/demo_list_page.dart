@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 class DemoListPage extends StatefulWidget {
+  const DemoListPage({super.key});
+
   @override
   _ListPageState createState() => _ListPageState();
 }
@@ -12,7 +14,7 @@ class _ListPageState extends State<DemoListPage> {
   var _items = [];
   var _curPage = 1;
   var _hasMore = true;
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   _ListPageState() {
     _controller.addListener(() {
@@ -37,7 +39,7 @@ class _ListPageState extends State<DemoListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("List demo"),
+          title: const Text("List demo"),
         ),
         body: RefreshIndicator(
             color: Colors.red,
@@ -46,7 +48,7 @@ class _ListPageState extends State<DemoListPage> {
               controller: _controller,
               itemCount: _items.length * 2,
               itemBuilder: (BuildContext context, int position) {
-                if (position.isOdd) return Divider();
+                if (position.isOdd) return const Divider();
 
                 final index = position ~/ 2;
                 return _buildRow(index);

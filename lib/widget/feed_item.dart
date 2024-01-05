@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/status.dart';
@@ -10,7 +9,7 @@ import 'package:page_view_indicators/circle_page_indicator.dart';
 class FeedItem extends StatefulWidget {
   Status status;
 
-  FeedItem(this.status);
+  FeedItem(this.status, {super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -43,8 +42,8 @@ class _FeedItemSate extends State<FeedItem> {
 
   Container buildAuthorWidget() {
     return Container(
-      margin: EdgeInsets.only(top: 5),
-      padding: EdgeInsets.only(left: 15, right: 15),
+      margin: const EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       width: double.infinity,
       height: 45,
       child: Row(
@@ -68,7 +67,7 @@ class _FeedItemSate extends State<FeedItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     status.user.name,
@@ -82,7 +81,7 @@ class _FeedItemSate extends State<FeedItem> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10, top: 2),
+                  margin: const EdgeInsets.only(left: 10, top: 2),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     formatTime(status.createTime),
@@ -107,7 +106,7 @@ class _FeedItemSate extends State<FeedItem> {
   Widget buildMediaWidget() {
     var count = status.medias.length;
     return Container(
-      margin: EdgeInsets.only(top: 5, bottom: 5),
+      margin: const EdgeInsets.only(top: 5, bottom: 5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +147,7 @@ class _FeedItemSate extends State<FeedItem> {
 
   Widget buildCircleIndicator(int size) {
     return Container(
-      margin: EdgeInsets.only(top: 5),
+      margin: const EdgeInsets.only(top: 5),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: CirclePageIndicator(
@@ -164,7 +163,7 @@ class _FeedItemSate extends State<FeedItem> {
 
   Container buildToolWidget() {
     return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 8),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 8),
       width: double.infinity,
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -197,7 +196,7 @@ class _FeedItemSate extends State<FeedItem> {
           children: [
             Positioned(
               child: Offstage(
-                offstage: status.likes.length <= 0,
+                offstage: status.likes.isEmpty,
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 1),
@@ -289,11 +288,11 @@ class _FeedItemSate extends State<FeedItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(right: 15),
+          margin: const EdgeInsets.only(right: 15),
           child: Image.asset(likeImage, width: 24, height: 24),
         ),
         Container(
-          margin: EdgeInsets.only(right: 15),
+          margin: const EdgeInsets.only(right: 15),
           child: Image.asset("assets/images/feed_comment.webp", width: 24, height: 24),
         ),
         Image.asset("assets/images/feed_share.webp", width: 24, height: 24),
@@ -304,7 +303,7 @@ class _FeedItemSate extends State<FeedItem> {
   Container buildContentWidget() {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -313,7 +312,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.topics.isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Text(
                 "#${status.firstTopic()}",
                 textAlign: TextAlign.left,
@@ -326,7 +325,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.title.isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: FormattedText(
                 status.title,
                 textAlign: TextAlign.left,
@@ -339,7 +338,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.text.isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: FormattedText(
                 status.text,
                 textAlign: TextAlign.left,
@@ -352,7 +351,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.commentTotal <= 0,
             child: Container(
-              margin: EdgeInsets.only(top: 8),
+              margin: const EdgeInsets.only(top: 8),
               child: Text(
                 "共${formatNumberZh(status.commentTotal)}条评论",
                 textAlign: TextAlign.left,
@@ -365,7 +364,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.comments.isEmpty,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -380,7 +379,7 @@ class _FeedItemSate extends State<FeedItem> {
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(left: 5),
                       child: Text(
                         status.commentText(0),
                         textAlign: TextAlign.left,
@@ -397,7 +396,7 @@ class _FeedItemSate extends State<FeedItem> {
           Offstage(
             offstage: status.comments.length <= 1,
             child: Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: const EdgeInsets.only(top: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -412,7 +411,7 @@ class _FeedItemSate extends State<FeedItem> {
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(left: 5),
+                      margin: const EdgeInsets.only(left: 5),
                       child: Text(
                         status.commentText(1),
                         textAlign: TextAlign.left,

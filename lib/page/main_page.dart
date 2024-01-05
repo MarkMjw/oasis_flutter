@@ -6,6 +6,8 @@ import 'package:oasis_flutter/page/message_page.dart';
 import 'package:oasis_flutter/page/discover_page.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -29,7 +31,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           _pages[0],
           _pages[1],
@@ -75,11 +77,11 @@ class _MainPageState extends State<MainPage> {
       [_getTabImage('assets/images/main_nav_message_normal.webp'), _getTabImage('assets/images/main_nav_message_hl.webp')],
       [_getTabImage('assets/images/main_nav_mine_normal.webp'), _getTabImage('assets/images/main_nav_mine_hl.webp')],
     ];
-    _pages = [HomePage(), DiscoverPage(), MoneyPage(), MinePage()];
+    _pages = [const HomePage(), const DiscoverPage(), const MoneyPage(), const MinePage()];
     pageController = PageController(initialPage: _tabIndex, keepPage: true);
   }
 
   Image _getTabImage(path) {
-    return new Image.asset(path, width: 24, height: 24);
+    return Image.asset(path, width: 24, height: 24);
   }
 }

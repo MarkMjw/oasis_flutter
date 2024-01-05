@@ -43,13 +43,13 @@ class FormattedText extends StatelessWidget {
 
   FormattedText(
     this.text, {
-    Key? key,
+    super.key,
     this.style,
     this.textAlign,
     this.textDirection,
     this.overflow,
     this.maxLines,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class FormattedText extends StatelessWidget {
       overflow: TextOverflow.clip,
       maxLines: maxLines ?? defaultTextStyle.maxLines,
       parse: parse,
-      regexOptions: RegexOptions(caseSensitive: false),
+      regexOptions: const RegexOptions(caseSensitive: false),
     );
   }
 }

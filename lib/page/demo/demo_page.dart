@@ -3,6 +3,8 @@ import 'package:oasis_flutter/page/demo/demo_layout_page.dart';
 import 'package:oasis_flutter/page/demo/demo_list_page.dart';
 
 class DemoPage extends StatefulWidget {
+  const DemoPage({super.key});
+
   @override
   _DemoPageState createState() => _DemoPageState();
 }
@@ -19,33 +21,33 @@ class _DemoPageState extends State<DemoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("Demo"),
+        title: const Text("Demo"),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+              margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
               height: 45,
               width: double.infinity,
               child: ElevatedButton(
-                child: Text("Layout demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
+                child: const Text("Layout demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoLayoutPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DemoLayoutPage()));
                 },
               ),
             ),
             Container(
-              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+              margin: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
               height: 45,
               width: double.infinity,
               child: ElevatedButton(
-                child: Text("List demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
+                child: const Text("List demo页面", style: TextStyle(fontSize: 15.0, color: Colors.red)),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoListPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DemoListPage()));
                 },
               ),
             ),
@@ -55,7 +57,7 @@ class _DemoPageState extends State<DemoPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

@@ -10,7 +10,7 @@ import 'package:oasis_flutter/widget/waterfall_item.dart';
 class ChannelPage extends StatefulWidget {
   final int cid;
 
-  ChannelPage({Key? key, this.cid = 0}) : super(key: key);
+  const ChannelPage({super.key, this.cid = 0});
 
   @override
   _ChannelPageState createState() => _ChannelPageState();
@@ -21,7 +21,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   var cursor = "-1";
   var _hasMore = true;
   var _loading = false;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   _ChannelPageState() {
     _scrollController.addListener(() {
@@ -73,16 +73,16 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   }
 
   Widget buildWaterfall() {
-    return new StaggeredGridView.countBuilder(
+    return StaggeredGridView.countBuilder(
       controller: _scrollController,
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       crossAxisCount: 4,
       itemCount: _items.length,
       itemBuilder: (BuildContext context, int index) {
         Status status = _items[index];
         return WaterfallItem(status);
       },
-      staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+      staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
     );
@@ -96,7 +96,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
         Container(
           width: 24,
           height: 24,
-          margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+          margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
           child: CircularProgressIndicator(color: ColorConfig.commonColorHighlight, strokeWidth: 2),
         ),
         Text(

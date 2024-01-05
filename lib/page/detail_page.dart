@@ -15,7 +15,7 @@ import 'package:video_player/video_player.dart';
 class DetailPage extends StatefulWidget {
   final Status? status;
 
-  DetailPage({Key? key, this.status}) : super(key: key);
+  const DetailPage({super.key, this.status});
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -25,10 +25,10 @@ class _DetailPageState extends State<DetailPage> {
   VideoPlayerController? _controller;
   bool _isPlaying = false;
 
-  var _items = [];
+  final _items = [];
   var cursor = "-1";
   var _hasMore = true;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   _DetailPageState() {
     _scrollController.addListener(() {
@@ -83,7 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                 )
               : Container(),
         ),
-        Container(
+        SizedBox(
           height: 180,
           width: double.infinity,
           child: Center(
@@ -94,11 +94,11 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 48,
           height: 48,
           child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -115,7 +115,7 @@ class _DetailPageState extends State<DetailPage> {
         child: ListView.builder(
           controller: _scrollController,
           itemCount: _itemCount(),
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           itemBuilder: (BuildContext context, int position) {
             if (position == 0) {
               return _buildHeader();
@@ -128,7 +128,7 @@ class _DetailPageState extends State<DetailPage> {
                 }
               } else {
                 return Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   child: Divider(color: ColorConfig.dividerColor, height: 1),
                 );
               }
@@ -148,7 +148,7 @@ class _DetailPageState extends State<DetailPage> {
         _buildTitle(),
         _buildPlayInfo(),
         _buildShare(),
-        Container(margin: EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.background1),
+        Container(margin: const EdgeInsets.only(left: 10, right: 10), height: 0.5, color: ColorConfig.background1),
         _buildAuthor(),
         Container(height: 5, color: ColorConfig.background1),
       ],
@@ -159,13 +159,13 @@ class _DetailPageState extends State<DetailPage> {
     return Offstage(
       offstage: widget.status?.title.trim().isEmpty == true,
       child: Container(
-        margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         alignment: Alignment.topLeft,
         child: Text(
           widget.status!.title,
           maxLines: 3,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -177,11 +177,11 @@ class _DetailPageState extends State<DetailPage> {
 
   Container _buildPlayInfo() {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       alignment: Alignment.topLeft,
       child: Text(
         "${formatNumberZh(widget.status!.commentTotal)}次播放  |  ${formatDate(widget.status!.createTime, "yyyy年MM月dd日")}发布",
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 12,
           color: Color(0xff4c4c4c),
         ),
@@ -192,11 +192,11 @@ class _DetailPageState extends State<DetailPage> {
   Container _buildShare() {
     return Container(
       height: 48,
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       child: Row(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 8),
             child: Image.asset(
               "assets/images/icon_weibo.webp",
               width: 75,
@@ -204,7 +204,7 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 8),
             child: Image.asset(
               "assets/images/icon_wechat.webp",
               width: 75,
@@ -212,7 +212,7 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 8),
             child: Image.asset(
               "assets/images/icon_pyq.webp",
               width: 75,
@@ -220,7 +220,7 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.only(right: 8),
             child: Image.asset(
               "assets/images/icon_go_weibo.webp",
               width: 75,
@@ -234,7 +234,7 @@ class _DetailPageState extends State<DetailPage> {
 
   Container _buildAuthor() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10),
       height: 48,
       child: Row(
         children: <Widget>[
@@ -266,18 +266,18 @@ class _DetailPageState extends State<DetailPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   alignment: Alignment.topLeft,
                   child: Text(
                     widget.status!.user.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       color: Colors.black,
                     ),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10, top: 1),
+                  margin: const EdgeInsets.only(left: 10, top: 1),
                   alignment: Alignment.topLeft,
                   child: Text(
                     widget.status!.user.description,
@@ -300,12 +300,12 @@ class _DetailPageState extends State<DetailPage> {
   Widget _buildCommentRow(int position) {
     Comment comment = _items[position];
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 12, bottom: 12),
+      padding: const EdgeInsets.only(left: 10, right: 10, top: 12, bottom: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(right: 10),
+            margin: const EdgeInsets.only(right: 10),
             child: ClipOval(
               child: CachedNetworkImage(
                 imageUrl: comment.user.image,
@@ -329,7 +329,7 @@ class _DetailPageState extends State<DetailPage> {
                         comment.user.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15,
                         ),
@@ -337,7 +337,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Text(
                       formatDate(comment.createTime, "yyyy-hh-mm"),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff9d9d9d),
                         fontSize: 11,
                       ),
@@ -345,7 +345,7 @@ class _DetailPageState extends State<DetailPage> {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 5),
+                  margin: const EdgeInsets.only(top: 5),
                   child: Text(
                     comment.text,
                     style: TextStyle(
@@ -370,8 +370,8 @@ class _DetailPageState extends State<DetailPage> {
         Container(
           width: 24,
           height: 24,
-          margin: EdgeInsets.only(right: 10),
-          child: CircularProgressIndicator(strokeWidth: 2),
+          margin: const EdgeInsets.only(right: 10),
+          child: const CircularProgressIndicator(strokeWidth: 2),
         ),
         Text(
           "加载中...",

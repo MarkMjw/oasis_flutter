@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MoneyPage extends StatefulWidget {
+  const MoneyPage({super.key});
+
   @override
   _MoneyPageState createState() => _MoneyPageState();
 }
@@ -10,9 +12,9 @@ class _MoneyPageState extends State<MoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("消息"),
+          title: const Text("消息"),
         ),
-        body: Center(
+        body: const Center(
           child: Text("消息页"),
         ));
   }

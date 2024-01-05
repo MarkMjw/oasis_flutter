@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'demo/demo_page.dart';
 
 class MinePage extends StatefulWidget {
+  const MinePage({super.key});
+
   @override
   _MinePageState createState() => _MinePageState();
 }
@@ -12,16 +14,16 @@ class _MinePageState extends State<MinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("我的"),
+          title: const Text("我的"),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.dehaze),
+                icon: const Icon(Icons.dehaze),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DemoPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const DemoPage()));
                 })
           ],
         ),
-        body: Center(
+        body: const Center(
           child: Text("个人页"),
         ));
   }

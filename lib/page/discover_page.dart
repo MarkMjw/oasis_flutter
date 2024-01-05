@@ -9,12 +9,14 @@ import 'package:http/http.dart';
 import 'channel_page.dart';
 
 class DiscoverPage extends StatefulWidget {
+  const DiscoverPage({super.key});
+
   @override
   _DiscoverPageState createState() => _DiscoverPageState();
 }
 
 class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMixin {
-  List<Category> _cates = [];
+  final List<Category> _cates = [];
   TabController? _controller;
 
   @override
@@ -34,7 +36,7 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("发现"),
+        title: const Text("发现"),
         bottom: TabBar(
           controller: _controller,
           tabs: _cates.map((cate) {
@@ -44,18 +46,18 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
           indicatorSize: TabBarIndicatorSize.label,
           indicatorColor: ColorConfig.commonColorHighlight,
           indicatorWeight: 2,
-          indicatorPadding: EdgeInsets.only(bottom: 0.0),
+          indicatorPadding: const EdgeInsets.only(bottom: 0.0),
           labelColor: ColorConfig.commonColorHighlight,
-          labelStyle: new TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+          labelStyle: const TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
           unselectedLabelColor: ColorConfig.commonColor,
-          unselectedLabelStyle: new TextStyle(fontSize: 16.0),
+          unselectedLabelStyle: const TextStyle(fontSize: 16.0),
         ),
       ),
       body: TabBarView(
+        controller: _controller,
         children: _cates.map((cate) {
           return ChannelPage(cid: cate.id);
         }).toList(),
-        controller: _controller,
       ),
     );
   }

@@ -8,6 +8,8 @@ import 'package:oasis_flutter/model/status.dart';
 import 'package:oasis_flutter/widget/feed_item.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -16,7 +18,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
   var _items = [];
   var cursor = "-1";
   var _hasMore = true;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   _HomePageState() {
     _scrollController.addListener(() {
@@ -38,15 +40,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
     _loadData(true);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("关注")),
+        appBar: AppBar(title: const Text("关注")),
         body: RefreshIndicator(
             color: ColorConfig.commonColorHighlight,
             backgroundColor: ColorConfig.background1,
@@ -62,7 +60,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
                       return Container();
                     }
                   } else {
-                    return Divider(color: Colors.transparent, height: 5);
+                    return const Divider(color: Colors.transparent, height: 5);
                   }
                 }
 
@@ -89,7 +87,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
         Container(
           width: 24,
           height: 24,
-          margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+          margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
           child: CircularProgressIndicator(color: ColorConfig.commonColorHighlight, strokeWidth: 2),
         ),
         Text(
