@@ -1,6 +1,6 @@
 # oasis
 
-A [oasis](https://sj.qq.com/appdetail/com.sina.oasis) client(demo) written by Flutter..
+A [oasis](https://sj.qq.com/appdetail/com.sina.oasis) client(demo) written by Flutter.
 
 ## ScreenShots
 
