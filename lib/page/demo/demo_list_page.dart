@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import '../../config/api.dart';
 
 class DemoListPage extends StatefulWidget {
   const DemoListPage({super.key});
@@ -75,9 +73,8 @@ class _ListPageState extends State<DemoListPage> {
 
   void _loadData(bool isRefresh) async {
     String url = "https://app.kangzubin.com/iostips/api/feed/list?page=$_curPage&from=flutter-app&version=1.0";
-    Response response = await get(Uri.parse(url));
-
-    final body = json.decode(response.body);
+    final response = await dio.get(url);
+    final body = response.data;
     final int code = body["code"];
     if (code == 0) {
       final feeds = body["data"]["feeds"];

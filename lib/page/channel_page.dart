@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:oasis_flutter/config/api.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/status.dart';
-import 'package:http/http.dart';
 import 'package:oasis_flutter/widget/waterfall_item.dart';
 
 class ChannelPage extends StatefulWidget {
@@ -114,9 +112,8 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
     String url =
         "${Api.HOST}/timeline/discovery?channel_id=${widget.cid}&cursor=$cursor&count=20&${Api.COMMON_PARAM}&is_recommend_channel=${widget.cid == 0}";
     print(url);
-    Response response = await get(Uri.parse(url), headers: Api.COMMON_HEADER);
-
-    final body = json.decode(response.body);
+    final response = await dio.get(url);
+    final body = response.data;
     final int code = body["code"];
     if (code == 0) {
       cursor = body["data"]["next_cursor"];

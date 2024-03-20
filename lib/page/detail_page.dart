@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:oasis_flutter/config/api.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/comment.dart';
@@ -410,17 +407,18 @@ class _DetailPageState extends State<DetailPage> {
     String url =
         "${Api.HOST}/comment/list?sid=${widget.status!.id}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(Uri.parse(url));
+    final response = await dio.get(url);
 
-    String res = response.body;
-    int index = res.indexOf("代码折叠", 0);
-    String fixBody;
-    if (index > 0) {
-      fixBody = res.substring(0, index);
-    } else {
-      fixBody = res;
-    }
-    final body = json.decode(fixBody);
+    // String res = response.data;
+    // int index = res.indexOf("代码折叠", 0);
+    // String fixBody;
+    // if (index > 0) {
+    //   fixBody = res.substring(0, index);
+    // } else {
+    //   fixBody = res;
+    // }
+    // final body = json.decode(fixBody);
+    final body = response.data;
     final int code = body["code"];
     if (code == 0) {
       cursor = body["data"]["next_cursor"];

@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:oasis_flutter/config/api.dart';
 import 'package:oasis_flutter/config/color_config.dart';
 import 'package:oasis_flutter/model/category.dart';
-import 'package:http/http.dart';
 
 import 'channel_page.dart';
 
@@ -65,9 +62,8 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
   void _fetchTabs() async {
     String url = "${Api.HOST}/channel/list?${Api.COMMON_PARAM}";
     print(url);
-    Response response = await get(Uri.parse(url), headers: Api.COMMON_HEADER);
-
-    final body = json.decode(response.body);
+    final response = await dio.get(url);
+    final body = response.data;
     final int code = body["code"];
     if (code == 0) {
       final cates = body["data"]["channels"];
