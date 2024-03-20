@@ -71,16 +71,15 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   }
 
   Widget buildWaterfall() {
-    return StaggeredGridView.countBuilder(
+    return MasonryGridView.count(
       controller: _scrollController,
       padding: const EdgeInsets.all(5),
-      crossAxisCount: 4,
+      crossAxisCount: 2,
       itemCount: _items.length,
       itemBuilder: (BuildContext context, int index) {
         Status status = _items[index];
         return WaterfallItem(status);
       },
-      staggeredTileBuilder: (int index) => const StaggeredTile.fit(2),
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
     );
