@@ -4,20 +4,19 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 
 class Api {
-  static const String HOST = 'http://i.oasis-test.chengdu.weibo.cn/v1';
-  static const String COMMON_PARAM = 'cuid=1823115863'
-      '&version=3.6.5'
-      '&debug=true'
-      '&platform=ANDROID';
+  static const String HOST = 'http://i.oasis-test.chengdu.weibo.cn/v1/';
+  static const String COMMON_PARAM = 'cuid=1823115863&version=5.7.3&debug=true&platform=ANDROID';
 
   static const Map<String, String> COMMON_HEADER = {
     "gsid": "O1dGmriqebHVuxbd6uJCMS5AbuPtmezAlQJktRL3cFJvY8hh5aVfcF1lLTL20uOmSKP3/ifRf9bSAlkUWLGPlcVRUnP52P6H6KuAq0qUEt0kB4r4zrIa2+XKJEKCzluH",
-    "User-Agent": "HUAWEI-LIO-AL00__oasis__3.6.5__Android__Android10"
+    "User-Agent": "samsung-SM-G9730__oasis__5.7.3__Android__Android12"
   };
 }
 
 final Dio dio = Dio()
+  ..options.baseUrl = Api.HOST
   ..options.headers = Api.COMMON_HEADER
+  ..interceptors.add(LogInterceptor(request: true, requestHeader: true, requestBody: false, responseBody: true, responseHeader: true, error: true))
   ..httpClientAdapter = IOHttpClientAdapter(
     createHttpClient: () {
       final client = HttpClient();

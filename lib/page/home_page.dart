@@ -99,8 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin, Auto
   }
 
   Future<void> _loadData(bool isRefresh) async {
-    String url = "${Api.HOST}/timeline/following_and_card?cursor=$cursor&count=10&${Api.COMMON_PARAM}";
-    print(url);
+    String url = "timeline/following_and_card?cursor=$cursor&count=10&${Api.COMMON_PARAM}";
     final response = await dio.get(url);
     final body = response.data;
     final int code = body["code"];

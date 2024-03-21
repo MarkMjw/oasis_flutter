@@ -60,8 +60,7 @@ class _DiscoverPageState extends State<DiscoverPage> with TickerProviderStateMix
   }
 
   void _fetchTabs() async {
-    String url = "${Api.HOST}/channel/list?${Api.COMMON_PARAM}";
-    print(url);
+    String url = "channel/list?${Api.COMMON_PARAM}";
     final response = await dio.get(url);
     final body = response.data;
     final int code = body["code"];
