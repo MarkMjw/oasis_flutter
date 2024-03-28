@@ -108,7 +108,7 @@ class _ChannelPageState extends State<ChannelPage> with AutomaticKeepAliveClient
   }
 
   void _loadData(bool isRefresh) async {
-    String url = "timeline/discovery?channel_id=${widget.cid}&cursor=$cursor&count=20&${Api.COMMON_PARAM}&is_recommend_channel=${widget.cid == 0}";
+    String url = "timeline/discovery?channel_id=${widget.cid}&cursor=$cursor&count=20&is_recommend_channel=${widget.cid == 0}";
     final response = await dio.get(url);
     final body = response.data;
     final int code = body["code"];

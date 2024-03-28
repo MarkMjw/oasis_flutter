@@ -404,7 +404,7 @@ class _DetailPageState extends State<DetailPage> {
 
   void _loadData() async {
     // widget.status?.id = 4438907896614858;
-    String url = "comment/list?sid=${widget.status!.id}&cursor=$cursor&count=20&${Api.COMMON_PARAM}";
+    String url = "comment/list?sid=${widget.status!.id}&cursor=$cursor&count=20";
     final response = await dio.get(url);
 
     // String res = response.data;
